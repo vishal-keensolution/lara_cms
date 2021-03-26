@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateTblRoleUserTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations. 
      *
      * @return void
      */
