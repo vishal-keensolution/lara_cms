@@ -83,8 +83,9 @@ class RoleController extends Controller
         ]);
         //-------------------------
         $roled = role::find($id);
+        $roled->name = $request->input('name');
              //for update in table
-             $roled->update($roled);
+             $roled->save();
              return redirect('/admin/role')->with('completed', 'Role has been updated');
            
         //----------------------
