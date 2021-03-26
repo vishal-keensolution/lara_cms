@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../tables/simple.html" class="nav-link">
+            <a href="{{url('admin/role')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Role</p>
             </a>
