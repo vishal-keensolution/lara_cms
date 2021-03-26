@@ -82,7 +82,7 @@ class RoleController extends Controller
             'name' => 'required|max:255',
         ]);
         //-------------------------
-        $roled = Role::find($id);
+        $roled = role::find($id);
              //for update in table
              $roled->update($roled);
              return redirect('/admin/role')->with('completed', 'Role has been updated');
@@ -98,7 +98,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
+        $role = role::findOrFail($id);
         $role->delete();
 
         return redirect('/admin/role')->with('completed', 'Role has been deleted');
