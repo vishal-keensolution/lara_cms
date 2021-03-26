@@ -34,7 +34,7 @@
       <!-- Sidebar Menu -->
        @yield('left_sb')
       <!-- /.sidebar-menu -->
-    </div>
+    
     <!-- /.sidebar -->
   </aside>
 
