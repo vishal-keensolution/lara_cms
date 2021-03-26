@@ -36,7 +36,11 @@
        @yield('left_sb')
        </div>
       <!-- /.sidebar-menu -->
+<<<<<<< HEAD
    
+=======
+    
+>>>>>>> b75fedf5d71cce936f8d531ff4c2b00eb70f023c
     <!-- /.sidebar -->
   </aside>
  </div>
