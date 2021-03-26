@@ -65,7 +65,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = User::findOrFail($id);
+        $role = role::findOrFail($id);
         return view('admin.editrole', compact('role'));
     }
 
@@ -82,9 +82,9 @@ class RoleController extends Controller
             'name' => 'required|max:255',
         ]);
         //-------------------------
-        $roled = role::find($id);
+        $roled = Role::find($id);
              //for update in table
-             $role->update($roled);
+             $roled->update($roled);
              return redirect('/admin/role')->with('completed', 'Role has been updated');
            
         //----------------------
@@ -98,7 +98,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = User::findOrFail($id);
+        $role = Role::findOrFail($id);
         $role->delete();
 
         return redirect('/admin/role')->with('completed', 'Role has been deleted');
