@@ -32,6 +32,8 @@ class UserAuth extends Controller
             'tbl_user.id',
             'tbl_user.name',
             'tbl_user.email',
+            'tbl_user.delete',
+            'tbl_user.status',
         )
             ->where([
                 'email' =>$request->input('email'),
@@ -41,81 +43,39 @@ class UserAuth extends Controller
 
         // CHECK IS DATA EXIST
         if ($admin) {
-            if ($admin->status != 1) {
+            if ($admin->status != 1 && $admin->delete != 1) {
                 return back()
                     ->withInput()
                     ->with('error', lang('Login failed! Because your account has been disabled!', $this->translation));
             }
 
-            // UPDATE "FORCE LOGOUT" STATUS
-            if ($admin->force_logout) {
-                $admin->force_logout = 0;
-                $admin->save();
-            }
 
             // SUCCESS LOGIN
-            // LOGGING
-            $log = new SysLog();
-            $log->subject = $admin->id;
-            $log->action = 1;
-            $log->save();
+        
 
             // GET USER'S ACCESS
             $access = [];
             $get_access = SysGroupRule::select(
-                'sys_group_rule.rule_id',
-                'sys_rules.name as rule_name',
-                'sys_rules.description as rule_desc',
-                'sys_modules.name as module_name'
+                'tbl_role_user.role_id', 
+                'tbl_role.name as rname'
             )
-                ->leftJoin('sys_rules', 'sys_rules.id', 'sys_group_rule.rule_id')
-                ->leftJoin('sys_modules', 'sys_rules.module_id', 'sys_modules.id')
-                ->where('sys_group_rule.group_id', $admin->group_id)
-                ->where('sys_modules.status', 1)
+            ->join('tbl_role_user', 'tbl_role_user.user_id', 'tbl_user.id')
+            ->join('tbl_role_user', 'tbl_role_user.role_id', 'tbl_role.id')
+
+                ->where('tbl_user.id', $admin->id)
                 ->get();
             if (count($get_access) > 0) {
                 foreach ($get_access as $item) {
                     $obj = new \stdClass();
-                    $obj->rule_id = $item->rule_id;
-                    $obj->rule_name = $item->rule_name;
-                    $obj->rule_desc = $item->rule_desc;
-                    $obj->module_name = $item->module_name;
+                    $obj->role_id = $item->role_id;
+                    $obj->role_name = $item->role_name;   
                     $access[] = $obj;
                 }
             }
-
-            // GET USER'S ACCESS DIVISIONS & BRANCHES
-            $division_allowed = [];
-            $branch_allowed = [];
-            $get_branch_allowed = SysGroupBranch::select(
-                'sys_branches.*',
-                'sys_divisions.name as division_name',
-                'sys_divisions.id as division_id'
-            )
-                ->leftJoin('sys_branches', 'sys_group_branch.branch', '=', 'sys_branches.id')
-                ->leftJoin('sys_divisions', 'sys_branches.division_id', '=', 'sys_divisions.id')
-                ->whereNull('sys_branches.deleted_at')
-                ->where('sys_group_branch.group', $admin->group_id)
-                ->orderBy('sys_divisions.name')
-                ->orderBy('sys_branches.name')
-                ->get();
-            if (count($get_branch_allowed) > 0) {
-                foreach ($get_branch_allowed as $item) {
-                    $obj = new \stdClass();
-                    $obj->branch_id = $item->id;
-                    $obj->branch = $item->name;
-                    $obj->division_id = $item->division_id;
-                    $obj->division = $item->division_name;
-                    $branch_allowed[] = $obj;
-
-                    if (!in_array($item->division_name, $division_allowed)) {
-                        $division_allowed[] = $item->division_name;
-                    }
-                }
-            }
+           
 
             // SET REDIRECT URI FROM SESSION (IF ANY)
-            $redirect_uri = route('admin.home');
+            $redirect_uri = route('admin');
             if (Session::has('redirect_uri')) {
                 $redirect_uri = Session::get('redirect_uri');
             }
@@ -123,8 +83,6 @@ class UserAuth extends Controller
             return redirect($redirect_uri)
                 ->with(Session::put('admin', $admin))
                 ->with(Session::put('access', $access))
-                ->with(Session::put('branch', $branch_allowed))
-                ->with(Session::put('division', $division_allowed))
                 ->with(Session::put('auth', Helper::generate_token($password)));
         }
 
