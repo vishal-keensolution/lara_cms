@@ -17,9 +17,6 @@ class UpdateTblUserTable extends Migration
             $table->boolean('status')->default(1);
             $table->boolean('delete')->default(0);
         });
-
-        $seeder = new ProductsSeederInitial();
-        $seeder->run();
     }
 
     /**
