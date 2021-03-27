@@ -22,7 +22,13 @@
           </div>
           <div class="card-body">
             <p class="login-box-msg">Register a new membership</p>
-
+            <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+              </div><br />
             <form action="../../index.html" method="post">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Full name">

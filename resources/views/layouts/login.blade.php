@@ -23,7 +23,13 @@
           </div>
           <div class="card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-
+            <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+              </div><br />
             <form action="{{url('/admin/user') }}" method="post">
                 @csrf
               <div class="input-group mb-3">

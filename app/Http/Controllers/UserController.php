@@ -49,9 +49,9 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'phone' => 'required|numeric',
-            'password' => 'required|max:255',
+            'email' => 'required|max:255|email|unique:tbl_user',
+            'phone' => 'required|numeric|unique:tbl_user',
+            'password' => 'required|min:6',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $User = new User($request->input()) ;
@@ -105,9 +105,9 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'phone' => 'required|numeric',
-
+            'email' => 'required|max:255|email|unique:tbl_user',
+            'phone' => 'required|numeric|unique:tbl_user',
+            'password' => 'required|alphaNum|min:6',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------
