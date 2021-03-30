@@ -53,7 +53,7 @@ Route::get('/admin/logout', [UserAuth::class,'logout']);
 
 Route::get('/admin', function () {
 
-    if(session()->has('user'))
+    if(session()->has('admin'))
     {
         return view('admin.dashboard');
     }

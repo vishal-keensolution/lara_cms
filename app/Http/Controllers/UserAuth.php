@@ -54,11 +54,11 @@ class UserAuth extends Controller
                 // GET USER'S ACCESS
                 $access = [];
                 $get_access = User::select(
-                    'tbl_role_user.role_id', 
+                    'tbl_role_user.role_id as rid', 
                     'tbl_role.name as rname'
                 )
-                ->join('tbl_role_user', 'tbl_role_user.user_id', 'tbl_user.id')
-                ->join('tbl_role_user', 'tbl_role_user.role_id', 'tbl_role.id')
+                ->join('tbl_role_user', 'tbl_role_user.user_id','=', 'tbl_user.id')
+                ->join('tbl_role', 'tbl_role.id', '=','tbl_role_user.role_id' )
                     ->where('tbl_user.id', $admin->first()->id)
                     ->get();
                 if (count($get_access) > 0) {
@@ -71,7 +71,7 @@ class UserAuth extends Controller
                 }
     
                 // SET REDIRECT URI FROM SESSION (IF ANY)
-                $redirect_uri = route('admin');
+                $redirect_uri = route('/admin');
                 if (Session::has('redirect_uri')) {
                     $redirect_uri = Session::get('redirect_uri');
                 }
