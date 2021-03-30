@@ -19,18 +19,11 @@ use App\Http\Controllers\UserAuth;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/admin', [UserAuth::class,'home']);
 Route::get('/admin/login', [UserAuth::class,'login']);
 Route::post('/admin/check', [UserAuth::class,'check']);
 Route::get('/admin/logout', [UserAuth::class,'logout']);
 
-Route::get('/admin', function () {
-
-    if(session()->has('admin'))
-    {
-        return view('admin.dashboard');
-    }
-    return redirect('admin/login');
-});
 
 Route::resource('admin/users', UserController::class);
 Route::resource('admin/auth', UserAuth::class);

@@ -11,8 +11,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserAuth extends Controller
 {
-    //
-    public function login()
+
+
+    public function home()
+    {
+        if (!Session::get('admin')) {
+            return redirect()->route('login');
+        }
+        return view('admin.dashboard');
+    }
+        public function login()
     {
         if (Session::get('admin')) {
             return redirect()->route('admin');
@@ -29,7 +37,7 @@ class UserAuth extends Controller
         ];
         
         $this->validate($request, $validation);
-
+            $adm=[];
         // GET THE DATA
         $admin = User::select(
             'tbl_user.id',
@@ -42,7 +50,17 @@ class UserAuth extends Controller
                 'email' =>$request->input('email'),
             ])
             ->first()->get(); 
-
+            if (count($admin) > 0) {
+                foreach ($admin as $a) {
+                    $obj = new \stdClass();
+                    $obj->id = $a->id;
+                    $obj->name = $a->name;   
+                    $obj->email = $a->email;   
+                    $obj->delete = $a->delete;   
+                    $obj->status = $a->status;   
+                    $adm[] = $obj;
+                }
+            }
             if ($admin && Hash::check($request->input('password'), $admin->first()->password)) {
                 if ($admin->first()->status != 1 && $admin->first()->delete != 1) {
                     return back()
@@ -64,27 +82,26 @@ class UserAuth extends Controller
                 if (count($get_access) > 0) {
                     foreach ($get_access as $item) {
                         $obj = new \stdClass();
-                        $obj->role_id = $item->role_id;
-                        $obj->role_name = $item->role_name;   
+                        $obj->role_id = $item->rid;
+                        $obj->role_name = $item->rname;   
                         $access[] = $obj;
                     }
                 }
     
                 // SET REDIRECT URI FROM SESSION (IF ANY)
-                $redirect_uri = route('/admin');
+                $redirect_uri = '/admin';
                 if (Session::has('redirect_uri')) {
                     $redirect_uri = Session::get('redirect_uri');
                 }
-    
-                return redirect($redirect_uri)
-                    ->with(Session::put('admin', $admin))
-                    ->with(Session::put('access', $access))
-                    ->with(Session::put('auth', Helper::generate_token($password)));
+                $request->session()->put('admin',$adm);
+                $request->session()->put('access',$access);
+
+                // print_r(session('admin'));
+                // print_r(session('access')); 
+                // die('here');
+                return redirect($redirect_uri);
               }
      // Fetch all records
-     $response['data'] = $admin;
-
-            print_r(response()->json($response)); die;
         // CHECK IS DATA EXIST
         
         // FAILED
@@ -98,8 +115,7 @@ class UserAuth extends Controller
         $session = Session::get('admin');
 
         Session::flush();
-        return redirect()
-            ->route('admin.login')
+        return redirect('admin/login')
             ->with('success', 'Logout successfully');
     }
 
