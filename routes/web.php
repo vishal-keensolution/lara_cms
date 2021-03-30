@@ -23,34 +23,6 @@ Route::get('/admin/login', [UserAuth::class,'login']);
 Route::post('/admin/check', [UserAuth::class,'check']);
 Route::get('/admin/logout', [UserAuth::class,'logout']);
 
-
-// Route::get('/admin/login', 'UserAuth@login')->name('admin.login');
-// Route::post('/admin/do-login', 'UserAuth@do_login')->name('admin.do_login');
-// Route::get('/logout', 'UserAuth@logout')->name('admin.Logout');
-
-//Route::get('/logout-all', 'system\AuthController@logout_all')->name('admin.logout.all');
-//Route::get('/auth/{social}', 'system\AuthController@redirect_to_provider')->name('admin.auth.provider');
-//Route::get('/auth/{social}/callback', 'system\AuthController@handle_provider_callback')->name('admin.auth.provider.callback');
-
-//Route::view('admin/login', 'admin.login');
-//Route::post('/admin/user', [UserAuth::class,'login']);
-
-// Route::get('/logout', function () {
-//     if(session()->has('user'))
-//     {
-//         session()->pull('user',null);
-//     }
-//     return redirect('admin/login');
-// });
-
-// Route::get('/admin/login', function () {
-//     if(session()->has('user'))
-//     {
-//         return redirect('admin');
-//     }
-//     return view('admin.login');
-// });
-
 Route::get('/admin', function () {
 
     if(session()->has('admin'))
