@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Session;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class UserAuth extends Controller
 {
@@ -16,7 +20,7 @@ class UserAuth extends Controller
         return view('admin.login');
     }
 
-    public function do_login(Request $request)
+    public function check(Request $request)
     {
         // LARAVEL VALIDATION
         $validation = [
@@ -25,7 +29,6 @@ class UserAuth extends Controller
         ];
         
         $this->validate($request, $validation);
-        $password = Hash::make($request->input('password'));
 
         // GET THE DATA
         $admin = User::select(
@@ -37,76 +40,67 @@ class UserAuth extends Controller
         )
             ->where([
                 'email' =>$request->input('email'),
-                'password' => $password
             ])
-            ->first();
+            ->first()->get(); 
 
-        // CHECK IS DATA EXIST
-        if ($admin) {
-            if ($admin->status != 1 && $admin->delete != 1) {
-                return back()
-                    ->withInput()
-                    ->with('error', lang('Login failed! Because your account has been disabled!', $this->translation));
-            }
-
-
-            // SUCCESS LOGIN
-        
-
-            // GET USER'S ACCESS
-            $access = [];
-            $get_access = SysGroupRule::select(
-                'tbl_role_user.role_id', 
-                'tbl_role.name as rname'
-            )
-            ->join('tbl_role_user', 'tbl_role_user.user_id', 'tbl_user.id')
-            ->join('tbl_role_user', 'tbl_role_user.role_id', 'tbl_role.id')
-
-                ->where('tbl_user.id', $admin->id)
-                ->get();
-            if (count($get_access) > 0) {
-                foreach ($get_access as $item) {
-                    $obj = new \stdClass();
-                    $obj->role_id = $item->role_id;
-                    $obj->role_name = $item->role_name;   
-                    $access[] = $obj;
+            if ($admin && Hash::check($request->input('password'), $admin->first()->password)) {
+                if ($admin->first()->status != 1 && $admin->first()->delete != 1) {
+                    return back()
+                        ->withInput()
+                        ->with('error', 'Login failed! Because your account has been disabled!');
                 }
-            }
-           
+                // SUCCESS LOGIN
+    
+                // GET USER'S ACCESS
+                $access = [];
+                $get_access = User::select(
+                    'tbl_role_user.role_id', 
+                    'tbl_role.name as rname'
+                )
+                ->join('tbl_role_user', 'tbl_role_user.user_id', 'tbl_user.id')
+                ->join('tbl_role_user', 'tbl_role_user.role_id', 'tbl_role.id')
+                    ->where('tbl_user.id', $admin->first()->id)
+                    ->get();
+                if (count($get_access) > 0) {
+                    foreach ($get_access as $item) {
+                        $obj = new \stdClass();
+                        $obj->role_id = $item->role_id;
+                        $obj->role_name = $item->role_name;   
+                        $access[] = $obj;
+                    }
+                }
+    
+                // SET REDIRECT URI FROM SESSION (IF ANY)
+                $redirect_uri = route('admin');
+                if (Session::has('redirect_uri')) {
+                    $redirect_uri = Session::get('redirect_uri');
+                }
+    
+                return redirect($redirect_uri)
+                    ->with(Session::put('admin', $admin))
+                    ->with(Session::put('access', $access))
+                    ->with(Session::put('auth', Helper::generate_token($password)));
+              }
+     // Fetch all records
+     $response['data'] = $admin;
 
-            // SET REDIRECT URI FROM SESSION (IF ANY)
-            $redirect_uri = route('admin');
-            if (Session::has('redirect_uri')) {
-                $redirect_uri = Session::get('redirect_uri');
-            }
-
-            return redirect($redirect_uri)
-                ->with(Session::put('admin', $admin))
-                ->with(Session::put('access', $access))
-                ->with(Session::put('auth', Helper::generate_token($password)));
-        }
-
+            print_r(response()->json($response)); die;
+        // CHECK IS DATA EXIST
+        
         // FAILED
         return back()
             ->withInput()
-            ->with('error', lang('Username or Password is wrong!', $this->translation));
+            ->with('error', 'Username or Password is wrong!');
     }
 
     public function logout()
     {
         $session = Session::get('admin');
-        if (isset($session)) {
-            // LOGGING
-            $log = new SysLog();
-            $log->subject = $session->id;
-            $log->action = 2;
-            $log->save();
-        }
 
         Session::flush();
         return redirect()
             ->route('admin.login')
-            ->with('success', lang('Logout successfully', $this->translation));
+            ->with('success', 'Logout successfully');
     }
 
     public function logout_all()
@@ -122,7 +116,7 @@ class UserAuth extends Controller
             $log->save();
 
             $message = 'Logout from all sessions successfully';
-            $user = SysUser::find($session->id);
+            $user = User::find($session->id);
             $user->force_logout = 1;
             $user->save();
         }
@@ -130,7 +124,7 @@ class UserAuth extends Controller
         Session::flush();
         return redirect()
             ->route('admin.login')
-            ->with('success', lang($message, $this->translation));
+            ->with('success', $message);
     }
 
 }

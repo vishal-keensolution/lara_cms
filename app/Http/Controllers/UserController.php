@@ -65,7 +65,9 @@ class UserController extends Controller
             $file->move($destinationPath,$uploadedFile);
             $User->image = $uploadedFile ;
 
-        }$User->password = Hash::make($request->input('password')) ;
+        }
+        $password = Hash::make($request->input('password'));
+        $User->password = $password;
         $User->save() ;
 
         return redirect('/admin/users')->with('completed', 'User has been saved!') ;
@@ -107,7 +109,6 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:tbl_user',
             'phone' => 'required|numeric|unique:tbl_user',
-            'password' => 'required|alphaNum|min:6',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------

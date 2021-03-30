@@ -19,16 +19,21 @@ use App\Http\Controllers\UserAuth;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/admin/login', 'UserAuth@login')->name('admin.login');
-Route::post('/admin/do-login', 'UserAuth@do_login')->name('admin.do_login');
-Route::get('/admin/logout', 'UserAuth@logout')->name('admin.logout');
+Route::get('/admin/login', [UserAuth::class,'login']);
+Route::post('/admin/check', [UserAuth::class,'check']);
+Route::get('/admin/logout', [UserAuth::class,'logout']);
+
+
+// Route::get('/admin/login', 'UserAuth@login')->name('admin.login');
+// Route::post('/admin/do-login', 'UserAuth@do_login')->name('admin.do_login');
+// Route::get('/logout', 'UserAuth@logout')->name('admin.Logout');
 
 //Route::get('/logout-all', 'system\AuthController@logout_all')->name('admin.logout.all');
 //Route::get('/auth/{social}', 'system\AuthController@redirect_to_provider')->name('admin.auth.provider');
 //Route::get('/auth/{social}/callback', 'system\AuthController@handle_provider_callback')->name('admin.auth.provider.callback');
 
 //Route::view('admin/login', 'admin.login');
-Route::post('/admin/user', [UserAuth::class,'userLogin']);
+//Route::post('/admin/user', [UserAuth::class,'login']);
 
 // Route::get('/logout', function () {
 //     if(session()->has('user'))
@@ -56,6 +61,7 @@ Route::get('/admin', function () {
 });
 
 Route::resource('admin/users', UserController::class);
+Route::resource('admin/auth', UserAuth::class);
 Route::resource('admin/role', RoleController::class);
 Route::post('admin/users/save', [UserController::class, 'store'])->name('users.store');
 

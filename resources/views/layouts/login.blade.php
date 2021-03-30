@@ -30,7 +30,7 @@
                   @endforeach
               </ul>
               </div><br />
-            <form action="{{url('/admin/user') }}" method="post">
+            <form action="{{url('/admin/check') }}" method="post">
                 @csrf
               <div class="input-group mb-3">
                 <input type="email" name="email" class="form-control" placeholder="Email">
