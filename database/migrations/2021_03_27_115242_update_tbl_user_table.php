@@ -18,7 +18,7 @@ class UpdateTblUserTable extends Migration
             $table->boolean('delete')->default(0);
         });
     }
-
+ 
     /**
      * Reverse the migrations.
      *
