@@ -37,6 +37,7 @@ class CreateTblPostsTable extends Migration
             $table->text('metadata');
             $table->integer('featured')->unsigned();
             $table->timestamps();
+            
         });
     }
 

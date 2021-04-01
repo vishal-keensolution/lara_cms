@@ -17,6 +17,7 @@ class UpdateTblCategoryTable extends Migration
         Schema::table('tbl_category', function (Blueprint $table) {
            $table->foreign('parentid')->references('id')->on('tbl_category');
            $table->foreign('created_user_id')->references('id')->on('tbl_user');
+           
         });
     }
 

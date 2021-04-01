@@ -18,6 +18,7 @@ class UpdateTblPostsTable extends Migration
             $table->foreign('catid')->references('id')->on('tbl_category');
             $table->foreign('created_by')->references('id')->on('tbl_user');
             $table->foreign('parentid')->references('id')->on('tbl_posts');
+            
         });
     }
 

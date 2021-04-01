@@ -33,6 +33,7 @@ class CreateTblCategoryTable extends Migration
             $table->integer('modified_time');
             $table->string('cat_for_component');
             $table->timestamps();
+            
         });
     }
 
