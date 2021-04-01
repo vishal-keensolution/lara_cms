@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateTblRoleUserTable extends Migration
 {
     /**
-     * Run the migrations. 
+     * Run the migrations.
      *
      * @return void
      */
@@ -15,10 +15,8 @@ class CreateTblRoleUserTable extends Migration
     {
         Schema::create('tbl_role_user', function (Blueprint $table) {
             $table->id();
-            $table->biginteger('user_id')->unsigned(); 
-            $table->foreign('user_id')->references('id')->on('tbl_users'); 
-            $table->biginteger('role_id')->unsigned(); 
-            $table->foreign('role_id')->references('id')->on('tbl_role');             
+            $table->biginteger('userid')->unsigned(); 
+            $table->biginteger('roleid')->unsigned(); 
             $table->timestamps();
         });
     }

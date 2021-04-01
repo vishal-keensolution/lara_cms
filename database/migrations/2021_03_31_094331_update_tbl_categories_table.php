@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateTblUserTable extends Migration
+class UpdateTblCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class UpdateTblUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('tbl_user', function (Blueprint $table) {
-            $table->boolean('status')->default(1);
-            $table->boolean('delete')->default(0);
+        //
+         Schema::table('tbl_Categories', function (Blueprint $table) {
+           $table->foreign('parentid')->references('id')->on('categories');
+           $table->foreign('created_user_id')->references('id')->on('tbl_user');
         });
     }
- 
+
     /**
      * Reverse the migrations.
      *

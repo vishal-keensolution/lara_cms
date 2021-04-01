@@ -32,6 +32,52 @@
           </li>
         </ul>
       </li>
+         <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-table"></i>
+          <p>
+            Post - Manager
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{url('admin/users')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Posts</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/role')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Category</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+         <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-table"></i>
+          <p>
+            Page - Manager
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{url('admin/users')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Pages</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin/role')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Category</p>
+            </a>
+          </li>
+        </ul>
+      </li>
  
     </ul>
   </nav>
