@@ -82,8 +82,8 @@ class UserAuth extends Controller
                 if (count($get_access) > 0) {
                     foreach ($get_access as $item) {
                         $obj = new \stdClass();
-                        $obj->role_id = $item->rid;
-                        $obj->role_name = $item->rname;   
+                        $obj->roleid = $item->rid;
+                        $obj->rolename = $item->rname;   
                         $access[] = $obj;
                     }
                 }
