@@ -93,6 +93,7 @@ class UserAuth extends Controller
                 if (Session::has('redirect_uri')) {
                     $redirect_uri = Session::get('redirect_uri');
                 }
+                $request->session()->put('user',$adm);
                 $request->session()->put('admin',$adm);
                 $request->session()->put('access',$access);
 
