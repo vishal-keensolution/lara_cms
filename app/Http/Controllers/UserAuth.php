@@ -72,11 +72,11 @@ class UserAuth extends Controller
                 // GET USER'S ACCESS
                 $access = [];
                 $get_access = User::select(
-                    'tbl_role_user.role_id as rid', 
+                    'tbl_role_user.roleid as rid', 
                     'tbl_role.name as rname'
                 )
-                ->join('tbl_role_user', 'tbl_role_user.user_id','=', 'tbl_user.id')
-                ->join('tbl_role', 'tbl_role.id', '=','tbl_role_user.role_id' )
+                ->join('tbl_role_user', 'tbl_role_user.userid','=', 'tbl_user.id')
+                ->join('tbl_role', 'tbl_role.id', '=','tbl_role_user.roleid' )
                     ->where('tbl_user.id', $admin->first()->id)
                     ->get();
                 if (count($get_access) > 0) {
