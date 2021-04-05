@@ -5,12 +5,14 @@
 function session_n_role_chk(){
     
     if(session()->has('user')){
+        $value['in'] =  TRUE;
         $value['user'] =  session()->get('user');
         $value['admin'] = session()->get('admin');
         $value['access'] = session()->get('access');
         //die("value hai");
         return $value;
     }else{
+        $value['in'] =  FALSE;
         return redirect('/admin/Login')->with('completed', 'Access Denied') ;
     }
 }

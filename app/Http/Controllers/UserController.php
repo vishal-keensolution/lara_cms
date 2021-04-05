@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        print_r(session_n_role_chk()); die;
+        $s= session_n_role_chk();
         $data = User::latest()->paginate(5);
         return view('admin.users', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
