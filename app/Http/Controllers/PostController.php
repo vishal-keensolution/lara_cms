@@ -15,8 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Pages::latest()->paginate(5);
-        return view('admin.post', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $data = Post::latest()->paginate(5);
+        return view('admin.posts', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('/admin/post');
+        return redirect('/admin/posts');
     }
 
     /**
@@ -59,7 +59,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $user = Posts::findOrFail($id);
+        $user = Post::findOrFail($id);
         return view('admin.editpost', compact('user'));
     }
 
@@ -72,7 +72,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/admin/post');
+        return redirect('/admin/posts');
     }
 
     /**
@@ -83,9 +83,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $user = Posts::findOrFail($id);
+        $user = Post::findOrFail($id);
         $user->delete();
 
-        return redirect('/admin/post')->with('completed', 'User has been deleted');
+        return redirect('/admin/posts')->with('completed', 'User has been deleted');
     }
 }

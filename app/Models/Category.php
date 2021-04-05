@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Category as Authenticatable;
+use Illuminate\Foundation\Auth\user as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Category extends Model
+class Category extends Authenticatable
 {
-    protected $table = 'tbl_categories';
+    protected $table = 'tbl_category';
     use HasFactory, Notifiable;
 
      /**

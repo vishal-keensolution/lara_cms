@@ -32,7 +32,7 @@
           </li>
         </ul>
       </li>
-         <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-table"></i>
           <p>
@@ -42,13 +42,13 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{url('admin/users')}}" class="nav-link">
+            <a href="{{url('admin/posts')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Posts</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/role')}}" class="nav-link">
+            <a href="{{url('admin/category')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Category</p>
             </a>
@@ -65,13 +65,13 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{url('admin/users')}}" class="nav-link">
+            <a href="{{url('admin/pages')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Pages</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/role')}}" class="nav-link">
+            <a href="{{url('admin/category')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Category</p>
             </a>

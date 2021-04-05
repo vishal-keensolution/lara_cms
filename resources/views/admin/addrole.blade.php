@@ -17,12 +17,12 @@
 @include('layouts.block.left_sidebar')
 @endsection
 @section('content')
-    <h2>Add Role</h2>
+ <!--    <h2>Add Role</h2> -->
     <div class="container-fluid">
         <div class="">
             <div class="card push-top">
                 <div class="card-header">
-                Add Role
+                    <h3 class="card-title"> Add Role</h3>
                 </div>
 
                 <div class="card-body">
@@ -41,7 +41,7 @@
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name"/>
                         </div>
-                        <button type="submit" class="btn btn-block btn-danger">Add Role</button>
+                        <button type="submit" class="btn btn-block btn-primary">Add Role</button>
                     </form>
                 </div>
             </div>

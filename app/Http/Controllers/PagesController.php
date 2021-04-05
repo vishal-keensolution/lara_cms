@@ -16,7 +16,7 @@ class PagesController extends Controller
     public function index()
     {
         $data = Pages::latest()->paginate(5);
-        return view('admin.page', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.pages', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**

@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserAuth;
 
 /*
@@ -24,9 +27,17 @@ Route::get('/admin/login', [UserAuth::class,'login']);
 Route::post('/admin/check', [UserAuth::class,'check']);
 Route::get('/admin/logout', [UserAuth::class,'logout']);
 
-
-Route::resource('admin/users', UserController::class);
 Route::resource('admin/auth', UserAuth::class);
-Route::resource('admin/role', RoleController::class);
+						/*users*/
+Route::resource('admin/users', UserController::class);
 Route::post('admin/users/save', [UserController::class, 'store'])->name('users.store');
+
+					/*Role*/
+Route::resource('admin/role', RoleController::class);
+					/*posts*/
+Route::resource('admin/posts', PostController::class);
+					/*category*/
+Route::resource('admin/category', CategoryController::class);
+					/*pages*/
+Route::resource('admin/pages', PagesController::class);
 

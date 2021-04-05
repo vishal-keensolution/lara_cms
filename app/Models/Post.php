@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Post as Authenticatable;
+use Illuminate\Foundation\Auth\user as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Post extends Model
+class Post extends Authenticatable
 {
     protected $table = 'tbl_posts';
     use HasFactory, Notifiable;

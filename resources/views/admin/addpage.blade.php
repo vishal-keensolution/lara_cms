@@ -17,16 +17,13 @@
 @include('layouts.block.left_sidebar')
 @endsection
 @section('content')
-    <!-- <h2>Add User</h2> -->
+   <!--  <h2>Add Post</h2> -->
     <div class="container-fluid">
         <div class="">
             <div class="card push-top">
-                <div class="card-header">
-                    <h3 class="card-title"> Add User</h3>
+               <div class="card-header">
+                    <h3 class="card-title"> Add Page</h3>
                 </div>
-               <!--  <div class="card-header">
-                Add User
-                </div> -->
 
                 <div class="card-body">
                 @if ($errors->any())
@@ -41,7 +38,7 @@
                     <form method="post" action="{{ route('users.store')}}" enctype="multipart/form-data">
                         <div class="form-group">
                             @csrf
-                            <label for="name">Name</label>
+                            <label for="name">Title</label>
                             <input type="text" class="form-control" name="name"/>
                         </div>
                         <div class="form-group">
@@ -58,9 +55,9 @@
                         </div>
                         <div class="form-group">
                             <label for="image">Image</label>
-                            <input type="file"  name="image"/>
-                        </div><br>
-                        <button type="submit" class="btn btn-block btn-primary">Add User</button>
+                            <input type="file" class="form-control" name="image"/>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-primary">Add Page</button>
                     </form>
                 </div>
             </div>
