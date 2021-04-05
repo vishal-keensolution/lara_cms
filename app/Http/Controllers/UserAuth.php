@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-use Session;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -15,16 +17,13 @@ class UserAuth extends Controller
 
     public function home()
     {
-        if (!Session::get('admin')) {
-            return redirect()->route('login');
-        }
+        $s= session_n_role_chk();
+       
         return view('admin.dashboard');
     }
         public function login()
     {
-        if (Session::get('admin')) {
-            return redirect()->route('admin');
-        }
+        $s= session_n_role_chk_rev();
         return view('admin.login');
     }
 
@@ -113,7 +112,8 @@ class UserAuth extends Controller
 
     public function logout()
     {
-        $session = Session::get('admin');
+        $s= session_n_role_chk();
+        
 
         Session::flush();
         return redirect('admin/login')
