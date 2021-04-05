@@ -4,18 +4,27 @@
 
 function session_n_role_chk(){
     if(!session()->has('user')){
-        die('h123456789');
-       return redirect('/admin/Login')->with('completed', 'Access Denied') ;
+        
+    //    return redirect('/admin/Login')->with('completed', 'Access Denied') ;
+    echo redirect('/admin/login')->with('completed', 'Access Denied');
+    exit;
     }else{        
-         $value['in'] =  TRUE;
+        $value['in'] =  TRUE;
         $value['user'] =  session()->get('user');
         $value['admin'] = session()->get('admin');
         $value['access'] = session()->get('access');
-        //die("value hai");
         return $value;
     }
 }
 
+function session_n_role_chk_rev(){
+    if(session()->has('user')){
+        
+    // return redirect('/admin/Login')->with('completed', 'Access Denied') ;
+        echo redirect('/admin/');
+        exit;
+    }
+}
 function check ($module, $id) {
     return in_array($id, $_SESSION['user']['permissions'][$module]);
   }
