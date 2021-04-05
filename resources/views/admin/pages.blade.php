@@ -24,8 +24,8 @@
         <div class="card">
           <div class="card-header">
             <div class="right">
-              <h4 class="float-left">User's - List</h4>
-              <a  class="btn btn-success float-right" href="{{url('admin/users/create')}}">Add User</a>
+              <h4 class="float-left">Pages - List</h4>
+              <a  class="btn btn-success float-right" href="{{url('admin/pages/create')}}">Add Page</a>
             </div>
           </div>
           <!-- /.card-header -->
@@ -35,10 +35,10 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Title</th>
+                <th>Introtext</th>
+                <th>Fulltext</th>
+                <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
               </thead>

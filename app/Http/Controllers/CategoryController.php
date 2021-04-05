@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Pages::latest()->paginate(5);
+        $data = category::latest()->paginate(5);
         return view('admin.category', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -36,7 +37,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('/admin/category');
+
+        $Category = new Category($request->input()) ;
+        $Category->save() ;
+        return redirect('/admin/category')->with('completed', 'Category has been saved!');
     }
 
     /**

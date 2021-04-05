@@ -17,15 +17,15 @@
 @include('layouts.block.left_sidebar')
 @endsection
 @section('content')
-    <!-- <h2>User's List</h2> -->
+
 <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
             <div class="right">
-              <h4 class="float-left">User's - List</h4>
-              <a  class="btn btn-success float-right" href="{{url('admin/users/create')}}">Add User</a>
+              <h4 class="float-left">Posts - List</h4>
+              <a  class="btn btn-success float-right" href="{{url('admin/posts/create')}}">Add Post</a>
             </div>
           </div>
           <!-- /.card-header -->
@@ -35,10 +35,10 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Created</th>
+                <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
               </thead>
@@ -51,13 +51,13 @@
 
                     <td>{{$i}}</td>
                     <td>{{$row->id}}</td>
-                    <td><img style="width:100px" src="{{URL::to('/')}}/public/images/users/{{($row->image)}}"></td>
-                    <td>{{$row->name}}</td>
-                    <td>{{$row->email}}</td>
-                    <td>{{$row->phone}}</td>
+                    <td>{{$row->title}}></td>
+                    <td>{{$row->catid}}</td>
+                    <td>{{$row->created}}</td>
+                    <td>{{$row->state}}</td>
                     <td>
-                        <a href="{{ route('users.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('users.destroy', $row->id)}}" method="post" style="display: inline-block">
+                        <a href="{{ route('posts.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('posts.destroy', $row->id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>
@@ -72,10 +72,10 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Created</th>
+                <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
               </tfoot>

@@ -17,13 +17,17 @@
 @include('layouts.block.left_sidebar')
 @endsection
 @section('content')
-    <h2>Role's List</h2>
+    <!-- <h2>Role's List</h2> -->
 <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <div class="right"><a class="btn btn-success" href="{{url('admin/role/create')}}">Add Role</a></div>
+            <div class="right">
+              <h4 class="float-left">Role - List</h4>
+              <a  class="btn btn-success float-right" href="{{url('admin/role/create')}}">Add Role</a>
+            </div>
+           <!--  <div class="right"><a class="btn btn-success" href="{{url('admin/role/create')}}">Add Role</a></div> -->
           </div>
           <!-- /.card-header -->
           <div class="card-body">
