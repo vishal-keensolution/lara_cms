@@ -68,7 +68,7 @@ class UserController extends Controller
 
         }
         $password = Hash::make($request->input('password'));
-        $User->password = $password;
+        $User->password = $password; 
         $User->save() ;
 
         return redirect('/admin/users')->with('completed', 'User has been saved!') ;
