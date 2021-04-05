@@ -37,6 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $s= session_n_role_chk();
         return view('admin.adduser');
     }
 
@@ -48,6 +49,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $s= session_n_role_chk();
         $this->validate($request,[
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:tbl_user',
@@ -82,7 +85,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $s= session_n_role_chk();
     }
 
     /**
@@ -93,6 +96,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $s= session_n_role_chk();
         $user = User::findOrFail($id);
         return view('admin.edituser', compact('user'));
     }
@@ -106,6 +110,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $s= session_n_role_chk();
         $this->validate($request,[
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:tbl_user',
@@ -144,6 +149,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $s= session_n_role_chk();
         $user = User::findOrFail($id);
         $user->delete();
 
