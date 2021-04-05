@@ -25,7 +25,7 @@ use App\Http\Controllers\UserAuth;
 Route::get('/admin', [UserAuth::class,'home']);
 Route::get('/admin/login', [UserAuth::class,'login']);
 Route::post('/admin/check', [UserAuth::class,'check']);
-Route::get('/admin/logout', [UserAuth::class,'logout']);
+Route::get('logout', [UserAuth::class,'logout']);
 
 Route::resource('admin/auth', UserAuth::class);
 						/*users*/
