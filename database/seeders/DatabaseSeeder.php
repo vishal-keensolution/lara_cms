@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                 "email"=>"vishal.du123@gmail.com",
                 "phone"=>"9827530980",
                 "image"=>"",
-                "password"=>Hash::make("123456"),
+                "password"=>Hash::make("123456"), //chk this
            ]
         );
         \DB::table('tbl_role')->delete();
