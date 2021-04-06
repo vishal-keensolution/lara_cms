@@ -15,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $s= session_n_role_chk();
         $data = category::latest()->paginate(5);
         return view('admin.category', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -26,6 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $s= session_n_role_chk();
         return view('admin.addcategory');
     }
 
@@ -37,8 +39,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
+        $s= session_n_role_chk();
         $Category = new Category($request->input()) ;
+        // $parentid = Hash::make($request->input('password'));
         $Category->save() ;
         return redirect('/admin/category')->with('completed', 'Category has been saved!');
     }
@@ -52,6 +55,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         //
+        $s= session_n_role_chk();
     }
 
     /**
@@ -62,6 +66,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $s= session_n_role_chk();
         $user = Category::findOrFail($id);
         return view('admin.editcategory', compact('user'));
     }
@@ -75,6 +80,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $s= session_n_role_chk();
         return redirect('/admin/category');
     }
 
@@ -86,6 +92,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $s= session_n_role_chk();
         $user = Category::findOrFail($id);
         $user->delete();
 

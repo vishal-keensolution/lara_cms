@@ -37,13 +37,14 @@
 <div class="row-fluid">
 <div class="span12">
 <div id="system-message-container"></div>
-<form action="" method="post" name="adminForm" id="item-form" class="">
+<form action="{{ route('category.store')}}" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">  
                 <div class="form-group">
                     <label for="inputName">Title</label>
-                    <input type="text" name="name" class="form-control" value="">
+                    <input type="text" name="title" class="form-control" value="">
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="inputName">Alias</label>
-                    <input type="text" name="mobile" class="form-control" value="">
+                    <input type="text" name="alias" class="form-control" value="">
                 </div>
             </div>
         </div>
@@ -95,7 +96,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="js-editor-tinymce">
-                        <textarea name="" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
+                        <textarea name="description" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
                         </textarea>   
                     </div> 
                 </div>
@@ -105,51 +106,43 @@
         <div class="card-body">
                 <div class="form-group">
                     <label>Parent</label>
-                    <select id="" name="" class="form-control">
-                        <option value="1">- No parent -</option>
-                        <option value="2">Uncategorised</option>
+                    <select  name="parentid" class="form-control">
+                        <option value="0">- No parent -</option>
+                        <option value="1">parent</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select id="" name="" class="form-control">
+                    <select name="published" class="form-control">
                         <option value="1" selected="selected">Published</option>
                         <option value="0">Unpublished</option>
                         <option value="2">Archived</option>
                         <option value="-2">Trashed</option>
                     </select>
                 </div>
-            <div class="form-group">
+        <!--     <div class="form-group">
                 <label>Access</label>
-                <select id="" class="form-control" name="">
+                <select class="form-control" name="access">
                     <option value="1" selected="selected">Public</option>
                     <option value="5">Guest</option>
                     <option value="2">Registered</option>
                     <option value="3">Special</option>
                     <option value="6">Super Users</option>
                 </select>
-            </div>
-            <div class="form-group">
+            </div> -->
+           <!--  <div class="form-group">
                 <label>Language</label>
                 <select id="" class="form-control"  name="">
                     <option value="*">All</option>
                     <option value="en-GB">English (en-GB)</option>
                 </select>
-            </div>
-            <div class="form-group">
+            </div> -->
+           <!--  <div class="form-group">
                 <label>Tags</label>
                 <select class="form-control" name="" multiple>
                     <option value="2">Joomla</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label>Note</label>
-                <input type="text" name="" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label>Version Note</label>
-                <input type="text" name="" class="form-control" />
-            </div>
+            </div> -->
             </div>
         </div>
     </div>        
@@ -161,14 +154,14 @@
             <div class="card-body">  
                 <div class="form-group">
                     <label>Layout</label>
-                    <select id="" class="form-control" name="">
+                    <select class="form-control" name="params">
                         <optgroup id="" label="">
-                            <option value="">Blog</option>
-                            <option value="_:default">List</option>
+                            <option value="Blog">Blog</option>
+                            <option value="List">List</option>
                         </optgroup>
                     </select>
                 </div>
-                 <div class="form-group">
+               <!--   <div class="form-group">
                     <label>Image</label>
                   <div class="input-group">
                       <div class="custom-file">
@@ -176,16 +169,16 @@
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card-body">
+            <!-- <div class="card-body">
                 <div class="form-group">
-                    <label>Alt Text</label>
-                    <input type="text" class="form-control" name="" id=""  value="" />
+                    <label>Image-Alt</label>
+                    <input type="text" class="form-control" name="image_alt"/>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -194,23 +187,23 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">  
-                <div class="form-group">
+               <!--  <div class="form-group">
                     <label>Created Date</label>
                     <input type="date" class="form-control" name="" value=""/>
-                </div>
-                <div class="form-group">
+                </div> -->
+               <!--  <div class="form-group">
                     <label>Created By</label>
                     <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
-                <div class="form-group">
+                </div> -->
+               <!--  <div class="form-group">
                     <label>Hits</label>
                     <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" name="metakey" />
                 </div>
-                <div class="form-group">
+             <!--    <div class="form-group">
                     <label>Robots</label>
                     <select id="" class="form-control" name="">
                         <option value=""  selected="selected">Use Global</option>
@@ -219,26 +212,26 @@
                         <option value="">Index, No follow</option>
                         <option value="">No index, no follow</option>
                     </select>
-                </div>
+                </div> -->
+               <!--  <div class="form-group">
+                    <label>Modified Date</label>
+                    <input type="date" class="form-control" name=""/>
+                </div> --> 
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card-body">
-                <div class="form-group">
-                    <label>Modified Date</label>
-                    <input type="date" class="form-control" name="" value=""/>
-                </div>  
-                <div class="form-group">
+            <div class="card-body"> 
+               <!--  <div class="form-group">
                     <label>Modified By</label>
-                     <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
+                     <input type="text" class="form-control" name="" />
+                </div> -->
                 <div class="form-group">
                     <label>Author</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" name="metadata" />
                 </div>
                 <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea name="" class="form-control" id=""  cols="50"  rows="3"></textarea>
+                    <textarea name="metadesc" class="form-control" id=""  cols="50"  rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -248,14 +241,15 @@
 </div>
           
     </div>
+     <div class="card-footer">
+                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                </div>
 </form>
                
                     </div>
                 </div>
             </section>
-             <div class="card-footer">
-                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
-                </div>
+            
         </div>
     </div>
 </div>

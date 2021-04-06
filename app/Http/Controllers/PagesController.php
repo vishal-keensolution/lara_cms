@@ -15,6 +15,7 @@ class PagesController extends Controller
      */
     public function index()
     {
+        $s= session_n_role_chk();
         $data = Pages::latest()->paginate(5);
         return view('admin.pages', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -26,6 +27,7 @@ class PagesController extends Controller
      */
     public function create()
     {
+        $s= session_n_role_chk();
         return view('admin.addpage');
     }
 
@@ -37,6 +39,20 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
+        $s= session_n_role_chk();
+        $Pages = new Pages($request->input()) ;
+        
+        if($file = $request->hasFile('image')) {
+
+            $file = $request->file('image') ;
+            $getFileExt   = $file->getClientOriginalExtension();
+            $uploadedFile =   time().'.'.$getFileExt;
+            $destinationPath = public_path('images/users') ;
+            $file->move($destinationPath,$uploadedFile);
+            $User->image = $uploadedFile ;
+
+        }
+        $Pages->save() ;
         return redirect('/admin/page');
     }
 
@@ -49,6 +65,7 @@ class PagesController extends Controller
     public function show($id)
     {
         //
+        $s= session_n_role_chk();
     }
 
     /**
@@ -59,6 +76,7 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
+        $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
         return view('admin.editpage', compact('user'));
     }
@@ -72,6 +90,7 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $s= session_n_role_chk();
         return redirect('/admin/page');
     }
 
@@ -83,6 +102,7 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
+        $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
         $user->delete();
 

@@ -36,8 +36,11 @@ Route::post('admin/users/save', [UserController::class, 'store'])->name('users.s
 Route::resource('admin/role', RoleController::class);
 					/*posts*/
 Route::resource('admin/posts', PostController::class);
+Route::post('admin/post/save', [PostController::class, 'store'])->name('post.store');
 					/*category*/
 Route::resource('admin/category', CategoryController::class);
+Route::post('admin/category/save', [CategoryController::class, 'store'])->name('category.store');
 					/*pages*/
 Route::resource('admin/pages', PagesController::class);
+Route::post('admin/pages/save', [PagesController::class, 'store'])->name('pages.store');
 

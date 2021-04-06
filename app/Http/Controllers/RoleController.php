@@ -13,6 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $s= session_n_role_chk();
         $data = role::latest()->paginate(5);
         return view('admin.role', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -24,6 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $s= session_n_role_chk();
         return view('admin.addrole');
     }
 
@@ -35,6 +37,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $s= session_n_role_chk();
         $this->validate($request,[
             'name' => 'required|max:255'
         ]);
@@ -55,6 +58,7 @@ class RoleController extends Controller
     public function show($id)
     {
         //
+        $s= session_n_role_chk();
     }
 
     /**
@@ -65,6 +69,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $s= session_n_role_chk();
         $role = role::findOrFail($id);
         return view('admin.editrole', compact('role'));
     }
@@ -78,6 +83,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $s= session_n_role_chk();
         $this->validate($request,[
             'name' => 'required|max:255',
         ]);
@@ -99,6 +105,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $s= session_n_role_chk();
         $role = role::findOrFail($id);
         $role->delete();
 

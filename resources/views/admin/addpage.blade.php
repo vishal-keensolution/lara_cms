@@ -37,13 +37,14 @@
 <div class="row-fluid">
 <div class="span12">
 <div id="system-message-container"></div>
-<form action="" method="post" name="adminForm" id="item-form" class="">
+<form action="{{ route('pages.store')}}" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">  
                 <div class="form-group">
                     <label for="inputName">Title</label>
-                    <input type="text" name="name" class="form-control" value="">
+                    <input type="text" name="title" class="form-control" value="">
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="inputName">Alias</label>
-                    <input type="text" name="mobile" class="form-control" value="">
+                    <input type="text" name="alias" class="form-control" value="">
                 </div>
             </div>
         </div>
@@ -66,12 +67,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="#attrib-basic" data-toggle="tab">Image</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#attrib-option" data-toggle="tab">Option</a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="#attrib-Editscreen" data-toggle="tab">Configure Edit screen</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="#publishing" data-toggle="tab">Publishing</a>
             </li>
@@ -85,7 +86,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="js-editor-tinymce">
-                        <textarea name="" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
+                        <textarea name="fulltext" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
                         </textarea>   
                     </div> 
                 </div>
@@ -95,7 +96,7 @@
         <div class="card-body">
                 <div class="form-group">
                     <label>Status</label>
-                    <select id="" name="" class="form-control btn-success">
+                    <select id="" name="state" class="form-control btn-success">
                         <option value="1" selected="selected">Published</option>
                         <option value="0">Unpublished</option>
                         <option value="2">Archived</option>
@@ -104,7 +105,7 @@
                 </div>
                 <div class="form-group">
                     <label>Category</label>
-                    <select id="" name="" class="form-control">
+                    <select id="" name="catid" class="form-control">
                         <option value="1">- No parent -</option>
                         <option value="2">Uncategorised</option>
                     </select>
@@ -113,10 +114,10 @@
                     <label>Featured</label>
                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn bg-olive">
-                            <input type="radio" name="Yes" id="Yes"> Yes
+                            <input type="radio" name="Featured" id="Yes"> Yes
                           </label>
                           <label class="btn bg-olive">
-                            <input type="radio" name="No" id="No"> No
+                            <input type="radio" name="Featured" id="No"> No
                           </label>
                     </div>
                 </div>
@@ -130,14 +131,14 @@
                     <option value="6">Super Users</option>
                 </select>
             </div>
-            <div class="form-group">
+         <!--    <div class="form-group">
                 <label>Language</label>
                 <select id="" class="form-control"  name="">
                     <option value="*">All</option>
                     <option value="en-GB">English (en-GB)</option>
                 </select>
-            </div>
-            <div class="form-group">
+            </div> -->
+           <!--  <div class="form-group">
                 <label>Tags</label>
                 <input type="text" name="" class="form-control"/>
             </div>
@@ -148,7 +149,7 @@
             <div class="form-group">
                 <label>Version Note</label>
                 <input type="text" name="" class="form-control" />
-            </div>
+            </div> -->
             </div>
         </div>
     </div>        
@@ -162,7 +163,7 @@
                     <label>Image</label>
                   <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>
@@ -173,18 +174,18 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Url</label>
-                    <input type="text" class="form-control" name="" id=""  value="" />
+                    <input type="text" class="form-control" name="urls" id=""  value="" />
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="attrib-option" class="tab-pane">
+<!-- <div id="attrib-option" class="tab-pane">
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">  
-                 <div class="form-group">
+              <div class="form-group">
                    <label>Layout</label>
                     <select id="" class="form-control" name="">
                         <optgroup id="" label="">
@@ -193,7 +194,7 @@
                         </optgroup>
                     </select>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                    <label>Show Title</label>
                     <select id="" class="form-control" name="">
                         <optgroup id="" label="">
@@ -211,7 +212,7 @@
                         </optgroup>
                     </select>
                 </div>
-                 <div class="form-group">
+               <div class="form-group">
                    <label>Show Tags</label>
                     <select id="" class="form-control" name="">
                         <optgroup id="" label="">
@@ -220,7 +221,7 @@
                         </optgroup>
                     </select>
                 </div>
-                  <div class="form-group">
+                <div class="form-group">
                    <label>Show Intro Text</label>
                     <select id="" class="form-control" name="">
                         <optgroup id="" label="">
@@ -417,8 +418,8 @@
         </div>
     </div>
 </div>
-
-<div id="attrib-Editscreen" class="tab-pane">
+ -->
+<!-- <div id="attrib-Editscreen" class="tab-pane">
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">  
@@ -465,63 +466,63 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div id="publishing" class="tab-pane">
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
-                <div class="form-group">
+               <!--  <div class="form-group">
                     <label>Start Publishing</label>
-                    <input type="date" class="form-control" name="" value=""/>
+                    <input type="date" class="form-control" name="" />
                 </div>
                 <div class="form-group">
                     <label>Finish Publishing</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
-                </div>  
-                <div class="form-group">
+                    <input type="text" class="form-control" name="" />
+                </div>  --> 
+               <!--  <div class="form-group">
                     <label>Created Date</label>
-                    <input type="date" class="form-control" name="" value=""/>
+                    <input type="date" class="form-control" name="" />
                 </div>
                 <div class="form-group">
                     <label>Created By</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" name="" />
                 </div>
                 <div class="form-group">
                     <label>Created By Alias</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
-                <div class="form-group">
+                    <input type="text" class="form-control" name="" />
+                </div> -->
+                <!-- <div class="form-group">
                     <label>Modified Date</label>
-                    <input type="date" class="form-control" name="" value=""/>
+                    <input type="date" class="form-control" name=""/>
                 </div>  
                 <div class="form-group">
                     <label>Modified By</label>
-                     <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
-                <div class="form-group">
+                     <input type="text" class="form-control" name="" />
+                </div> -->
+                <!-- <div class="form-group">
                     <label>Revision</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
-                <div class="form-group">
+                    <input type="text" class="form-control" name="" />
+                </div> -->
+                <!-- <div class="form-group">
                     <label>Hits</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
+                    <input type="text" class="form-control" name="" />
+                </div> -->
             </div>
         </div>
         <div class="col-md-6">
             <div class="card-body">
                 <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea name="" class="form-control" id=""  cols="50"  rows="3"></textarea>
+                    <textarea name="metadesc" class="form-control" cols="50"  rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" id="" name="metakey" />
                 </div>
-                <div class="form-group">
+           <!--      <div class="form-group">
                     <label>Key Reference</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" name="" />
                 </div>
                 <div class="form-group">
                     <label>Robots</label>
@@ -535,16 +536,16 @@
                 </div>
                 <div class="form-group">
                     <label>Author</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
+                    <input type="text" class="form-control" name="" />
                 </div>
                 <div class="form-group">
                     <label>Content Rights</label>
-                    <textarea name="" class="form-control" id=""  cols="50"  rows="3"></textarea>
+                    <textarea name="" class="form-control" name="" cols="50"  rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label>External Reference</label>
-                    <input type="text" class="form-control" id="" class="" value=""/>
-                </div>
+                    <input type="text" class="form-control" name="" />
+                </div> -->
             </div>
         </div>
     </div>   
@@ -553,14 +554,15 @@
 </div>
           
     </div>
+      <div class="card-footer">
+                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                </div>
 </form>
                
                     </div>
                 </div>
             </section>
-             <div class="card-footer">
-                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
-                </div>
+           
         </div>
     </div>
 </div>
