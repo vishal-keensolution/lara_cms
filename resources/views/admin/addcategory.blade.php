@@ -96,8 +96,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="js-editor-tinymce">
-                        <textarea name="description" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
-                        </textarea>   
+                        <textarea name="description" cols="" rows="" style="width: 100%; height: 500px;" class="editable"></textarea>   
                     </div> 
                 </div>
             </div>    
