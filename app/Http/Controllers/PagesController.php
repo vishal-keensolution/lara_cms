@@ -40,6 +40,9 @@ class PagesController extends Controller
     public function store(Request $request)
     {
         $s= session_n_role_chk();
+        $this->validate($request,[
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
         $Pages = new Pages($request->input()) ;
         
         if($file = $request->hasFile('image')) {
@@ -105,7 +108,28 @@ class PagesController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        return redirect('/admin/pages');
+        $this->validate($request,[
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        //-------------------------
+        $userd = Pages::find($id);
+
+        if($request->image != ''){
+            $path = public_path('images/users');
+
+             //code for remove old file
+             if($userd->image != ''  && $userd->image != null){
+                  $file_old = $path.$userd->image;
+                  unlink($file_old);
+             }
+             //upload new file
+             $file = $request->image;
+             $filename = $userd->image;
+             $file->move($path, $filename);
+             //for update in table
+             $userd->update( $userd);
+             return redirect('/admin/pages')->with('completed', 'Page has been updated');
+            }
     }
 
     /**

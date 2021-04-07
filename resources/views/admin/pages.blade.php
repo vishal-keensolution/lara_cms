@@ -56,8 +56,8 @@
                     <td>{{$row->fulltext}}</td>
                     <td>{{$row->state}}</td>
                     <td>
-                        <a href="{{ route('users.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('users.destroy', $row->id)}}" method="post" style="display: inline-block">
+                        <a href="{{ route('pages.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('pages.destroy', $row->id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>

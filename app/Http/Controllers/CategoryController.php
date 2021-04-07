@@ -91,7 +91,9 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        return redirect('/admin/category');
+        $userd = Category::find($id);
+        $userd->update($userd);
+        return redirect('/admin/category')->with('completed', 'Category has been updated');
     }
 
     /**

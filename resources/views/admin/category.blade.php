@@ -56,8 +56,8 @@
                     <td>{{$row->description}}</td>
                     <td>{{$row->published}}</td>
                     <td>
-                        <a href="{{ route('users.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('users.destroy', $row->id)}}" method="post" style="display: inline-block">
+                        <a href="{{ route('category.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="{{ route('category.destroy', $row->id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>
