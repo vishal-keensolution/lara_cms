@@ -127,7 +127,7 @@ class PostController extends Controller
              $file->move($path, $filename);
              //for update in table
              $userd->update( $userd);
-             return redirect('/admin/posts');->with('completed', 'Post has been updated');
+             return redirect('/admin/posts')->with('completed', 'Post has been updated');
             }
     }
 
