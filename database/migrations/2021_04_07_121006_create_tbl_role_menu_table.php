@@ -15,7 +15,11 @@ class CreateTblRoleMenuTable extends Migration
     {
         Schema::create('tbl_role_menu', function (Blueprint $table) {
             $table->id();
+            $table->biginteger('menuid')->unsigned(); 
+            $table->biginteger('roleid')->unsigned(); 
             $table->timestamps();
+            $table->foreign('menuid')->references('id')->on('tbl_menu'); 
+            $table->foreign('roleid')->references('id')->on('tbl_role'); 
         });
     }
 
