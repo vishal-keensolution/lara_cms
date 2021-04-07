@@ -49,11 +49,25 @@ class PagesController extends Controller
             $uploadedFile =   time().'.'.$getFileExt;
             $destinationPath = public_path('images/users') ;
             $file->move($destinationPath,$uploadedFile);
-            $User->image = $uploadedFile ;
+            $Pages->images = $uploadedFile ;
 
         }
+        $Pages->title_alias=0;
+        $Pages->introtext=0;
+        $Pages->sectionid=0;
+        $Pages->mask=0;
+        $Pages->created=0;
+        $Pages->created_by=0;
+        $Pages->sectionid=0;
+        $Pages->mask=0;
+        $Pages->metadata=0;
+        $Pages->modified=0;
+        $Pages->modified_by=0;
+        $Pages->parentid=0;
+        $Pages->ordering=0;
+        $Pages->modified_by=0;
         $Pages->save() ;
-        return redirect('/admin/page');
+        return redirect('/admin/pages');
     }
 
     /**
@@ -91,7 +105,7 @@ class PagesController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        return redirect('/admin/page');
+        return redirect('/admin/pages');
     }
 
     /**
@@ -106,6 +120,6 @@ class PagesController extends Controller
         $user = Pages::findOrFail($id);
         $user->delete();
 
-        return redirect('/admin/page')->with('completed', 'User has been deleted');
+        return redirect('/admin/pages')->with('completed', 'User has been deleted');
     }
 }

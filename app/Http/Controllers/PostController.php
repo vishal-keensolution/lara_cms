@@ -49,9 +49,23 @@ class PostController extends Controller
             $uploadedFile =   time().'.'.$getFileExt;
             $destinationPath = public_path('images/users') ;
             $file->move($destinationPath,$uploadedFile);
-            $User->image = $uploadedFile ;
+            $Post->images = $uploadedFile ;
 
         }
+        $Post->title_alias=0;
+        $Post->introtext=0;
+        $Post->sectionid=0;
+        $Post->mask=0;
+        $Post->created=0;
+        $Post->created_by=0;
+        $Post->sectionid=0;
+        $Post->mask=0;
+        $Post->metadata=0;
+        $Post->modified=0;
+        $Post->modified_by=0;
+        $Post->parentid=0;
+        $Post->ordering=0;
+        $Post->modified_by=0;
         $Post->save() ;
         return redirect('/admin/posts');
     }
