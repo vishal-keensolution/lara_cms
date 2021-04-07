@@ -51,10 +51,10 @@
 
                     <td>{{$i}}</td>
                     <td>{{$row->id}}</td>
-                    <td><img style="width:100px" src="{{URL::to('/')}}/public/images/users/{{($row->image)}}"></td>
-                    <td>{{$row->name}}</td>
-                    <td>{{$row->email}}</td>
-                    <td>{{$row->phone}}</td>
+                    <td>{{$row->title}}</td>
+                    <td>{{$row->alias}}</td>
+                    <td>{{$row->description}}</td>
+                    <td>{{$row->published}}</td>
                     <td>
                         <a href="{{ route('users.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
                         <form action="{{ route('users.destroy', $row->id)}}" method="post" style="display: inline-block">

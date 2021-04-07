@@ -35,9 +35,9 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Title</th>
-                <th>Category</th>
-                <th>Created</th>
+                <th>Fulltext</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
@@ -51,9 +51,9 @@
 
                     <td>{{$i}}</td>
                     <td>{{$row->id}}</td>
-                    <td>{{$row->title}}></td>
-                    <td>{{$row->catid}}</td>
-                    <td>{{$row->created}}</td>
+                    <td><img style="width:100px" src="{{URL::to('/')}}/public/images/users/{{($row->images)}}"></td>
+                    <td>{{$row->title}}</td>
+                    <td>{{$row->fulltext}}</td>
                     <td>{{$row->state}}</td>
                     <td>
                         <a href="{{ route('posts.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>

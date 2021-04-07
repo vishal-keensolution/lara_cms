@@ -111,15 +111,22 @@
                 </div>
                 <div class="form-group">
                     <label>Featured</label>
+                    <select id="" name="Featured" class="form-control">
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+             <!--    <div class="form-group">
+                    <label>Featured</label>
                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
                           <label class="btn bg-olive">
-                            <input type="radio" name="Featured" id="Yes"> Yes
+                            <input type="radio" name="Featured" value="1"> Yes
                           </label>
                           <label class="btn bg-olive">
-                            <input type="radio" name="Featured" id="No"> No
+                            <input type="radio" name="Featured" value="0"> No
                           </label>
                     </div>
-                </div>
+                </div> -->
            <!--  <div class="form-group">
                 <label>Access</label>
                 <select id="" class="form-control" name="">
@@ -507,14 +514,15 @@
                     <label>Hits</label>
                     <input type="text" class="form-control" name="" />
                 </div> -->
+                 <div class="form-group">
+                    <label>Meta Description</label>
+                    <textarea name="metadesc" class="form-control" cols="50"  rows="3"></textarea>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card-body">
-                <div class="form-group">
-                    <label>Meta Description</label>
-                    <textarea name="metadesc" class="form-control" cols="50"  rows="3"></textarea>
-                </div>
+               
                 <div class="form-group">
                     <label>Meta Keywords</label>
                     <input type="text" class="form-control" id="" name="metakey" />
@@ -553,9 +561,9 @@
 </div>
           
     </div>
-      <div class="card-footer">
-                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
-                </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+    </div>
 </form>
                
                     </div>
