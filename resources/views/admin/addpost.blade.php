@@ -21,7 +21,7 @@
 <div class="container-header">
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title"> Add Posts</h3>
+            <h3 class="card-title">Add Posts</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -86,8 +86,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="js-editor-tinymce">
-                        <textarea name="fulltext" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
-                        </textarea>   
+                    <textarea name="fulltext" cols="" rows="" style="width: 100%; height: 500px;" class="editable"></textarea>   
                     </div> 
                 </div>
             </div>    
@@ -112,16 +111,16 @@
                 </div>
                 <div class="form-group">
                     <label>Featured</label>
-                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                          <label class="btn bg-olive">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn bg-olive">
                             <input type="radio" name="Featured" id="Yes"> Yes
-                          </label>
-                          <label class="btn bg-olive">
+                        </label>
+                        <label class="btn bg-olive">
                             <input type="radio" name="Featured" id="No"> No
-                          </label>
+                        </label>
                     </div>
                 </div>
-            <div class="form-group">
+         <!--    <div class="form-group">
                 <label>Access</label>
                 <select id="" class="form-control" name="">
                     <option value="1" selected="selected">Public</option>
@@ -130,7 +129,7 @@
                     <option value="3">Special</option>
                     <option value="6">Super Users</option>
                 </select>
-            </div>
+            </div> -->
          <!--    <div class="form-group">
                 <label>Language</label>
                 <select id="" class="form-control"  name="">
@@ -174,7 +173,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Url</label>
-                    <input type="text" class="form-control" name="urls" id=""  value="" />
+                    <input type="text" class="form-control" name="urls"/>
                 </div>
             </div>
         </div>
@@ -492,14 +491,14 @@
                     <label>Created By Alias</label>
                     <input type="text" class="form-control" name="" />
                 </div> -->
-                <div class="form-group">
+               <!--  <div class="form-group">
                     <label>Modified Date</label>
                     <input type="date" class="form-control" name=""/>
                 </div>  
                 <div class="form-group">
                     <label>Modified By</label>
                      <input type="text" class="form-control" name="" />
-                </div>
+                </div> -->
                 <!-- <div class="form-group">
                     <label>Revision</label>
                     <input type="text" class="form-control" name="" />
@@ -518,7 +517,7 @@
                 </div>
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <input type="text" class="form-control" id="" name="metakey" />
+                    <input type="text" class="form-control" name="metakey" />
                 </div>
            <!--      <div class="form-group">
                     <label>Key Reference</label>
@@ -554,9 +553,9 @@
 </div>
           
     </div>
-     <div class="card-footer">
-                  <button type="submit" class="btn btn-block btn-primary">Submit</button>
-                </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+    </div>
 </form>
                
                     </div>

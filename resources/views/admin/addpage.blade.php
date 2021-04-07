@@ -21,7 +21,7 @@
 <div class="container-header">
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title"> Add Pages</h3>
+            <h3 class="card-title">Add Pages</h3>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -86,8 +86,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="js-editor-tinymce">
-                        <textarea name="fulltext" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable">
-                        </textarea>   
+                        <textarea name="fulltext" id="" cols="" rows="" style="width: 100%; height: 500px;" class="editable"></textarea>   
                     </div> 
                 </div>
             </div>    
@@ -121,7 +120,7 @@
                           </label>
                     </div>
                 </div>
-            <div class="form-group">
+           <!--  <div class="form-group">
                 <label>Access</label>
                 <select id="" class="form-control" name="">
                     <option value="1" selected="selected">Public</option>
@@ -130,7 +129,7 @@
                     <option value="3">Special</option>
                     <option value="6">Super Users</option>
                 </select>
-            </div>
+            </div> -->
          <!--    <div class="form-group">
                 <label>Language</label>
                 <select id="" class="form-control"  name="">
@@ -545,7 +544,7 @@
                 <div class="form-group">
                     <label>External Reference</label>
                     <input type="text" class="form-control" name="" />
-                </div> -->
+                </div> --> 
             </div>
         </div>
     </div>   

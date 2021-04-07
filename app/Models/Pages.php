@@ -17,7 +17,7 @@ class Pages extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'phone','image'];
+    protected $fillable = ['title', 'alias', 'fulltext','state','catid', 'Featured', 'image','urls', 'metadesc', 'metakey'];
 
 
     /**
@@ -25,10 +25,6 @@ class Pages extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * The attributes that should be cast to native types.

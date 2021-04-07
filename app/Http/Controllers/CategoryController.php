@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
 
 class CategoryController extends Controller
 {
@@ -39,9 +41,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // $session = Session::get('admin');
+        // print_r($session['$id']);
         $s= session_n_role_chk();
         $Category = new Category($request->input()) ;
-        // $parentid = Hash::make($request->input('password'));
+        $Category->level=0;
+        $Category->extension=0;
+        $Category->modified=0;
+        $Category->created_time=0;
+        $Category->modified_user_id=0;
+        $Category->modified_time=0;
+        $Category->created_user_id=0;
         $Category->save() ;
         return redirect('/admin/category')->with('completed', 'Category has been saved!');
     }

@@ -199,10 +199,17 @@
                     <input type="text" class="form-control" id="" class="" value=""/>
                 </div> -->
                 <div class="form-group">
+                    <label>Category for component</label>
+                    <select class="form-control" name="cat_for_component">
+                        <option value="pages">Pages</option>
+                        <option value="post">Post</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>Meta Keywords</label>
                     <input type="text" class="form-control" name="metakey" />
                 </div>
-             <!--    <div class="form-group">
+             <!--  <div class="form-group">
                     <label>Robots</label>
                     <select id="" class="form-control" name="">
                         <option value=""  selected="selected">Use Global</option>
@@ -240,7 +247,7 @@
 </div>
           
     </div>
-     <div class="card-footer">
+                <div class="card-footer">
                   <button type="submit" class="btn btn-block btn-primary">Submit</button>
                 </div>
 </form>

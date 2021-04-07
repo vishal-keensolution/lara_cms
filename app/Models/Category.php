@@ -17,7 +17,7 @@ class Category extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'phone','image'];
+    protected $fillable = ['title', 'alias', 'description','parentid','published', 'params', 'metakey','metadata', 'metadesc', 'metakey','cat_for_component'];
 
 
     /**
@@ -25,10 +25,6 @@ class Category extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     /**
      * The attributes that should be cast to native types.
