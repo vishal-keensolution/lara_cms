@@ -28,7 +28,6 @@ function session_n_role_chk_rev(){
 function check ($module, $id) {
     return in_array($id, $_SESSION['user']['permissions'][$module]);
   }
-
 //------------------------------------------------   
 function utf8_uri_encode( $utf8_string, $length = 0 ) {
     $unicode = '';
