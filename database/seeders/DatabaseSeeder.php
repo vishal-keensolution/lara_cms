@@ -59,12 +59,24 @@ class DatabaseSeeder extends Seeder
                 "userid"=>"1",
                 "roleid"=>"2"
             ]);
-        \DB::table('tbl_role_user')->insert(
-            [
-                "id"=>3,
-                "userid"=>"1",
-                "roleid"=>"3"
-            ]
-        );
+            \DB::table('tbl_role_user')->insert(
+                [
+                    "id"=>3,
+                    "userid"=>"1",
+                    "roleid"=>"3"
+                ]
+            );
+            \DB::table('tbl_menu_access')->delete();
+            \DB::table('tbl_menu_access')->insert(
+                [
+                    "id"=>1,
+                    "method"=>1,
+                    "uri"=>1,
+                    "name"=>1,
+                    "action"=>1,
+                    "status"=>1,
+                    "delete"=>1,
+                ]
+            );
     }
 }
