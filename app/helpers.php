@@ -117,3 +117,17 @@ function sanitize($title) {
 
     return $title;
 }
+//-------------------------All Dropdowns----------------------------
+    use App\Models\Category;
+    use App\Models\Role; 
+function category_dropdown($mode="ADD",$select=""){
+    $Category['all']  = Category::all(); 
+    $Category['select']  = $select;
+    return $Category;
+}
+
+function role_dropdown($mode="ADD",$select=""){
+    $Role['all']  = Role::all(); 
+    $Role['select']  = $select;
+    return $Role;
+}

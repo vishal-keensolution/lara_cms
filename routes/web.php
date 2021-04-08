@@ -46,4 +46,3 @@ Route::post('admin/post/save', [PostController::class, 'store'])->name('post.sto
 					/*pages*/
 Route::resource('admin/pages', PagesController::class);
 Route::post('admin/pages/save', [PagesController::class, 'store'])->name('pages.store');
-
