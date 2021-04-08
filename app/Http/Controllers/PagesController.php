@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
 {
@@ -40,6 +41,8 @@ class PagesController extends Controller
     public function store(Request $request)
     {
         $s= session_n_role_chk();
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
         $this->validate($request,[
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -60,7 +63,7 @@ class PagesController extends Controller
         $Pages->sectionid=0;
         $Pages->mask=0;
         $Pages->created=0;
-        $Pages->created_by=0;
+        $Pages->created_by=$user_id;
         $Pages->sectionid=0;
         $Pages->mask=0;
         $Pages->metadata=0;
@@ -112,7 +115,10 @@ class PagesController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------
-        $userd = Pages::find($id);
+        // $userd = Pages::find($id);
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
+        $userd = Pages::find($user_id)->where('created_by',"=",$user_id)->first();
 
         if($request->image != ''){
             $path = public_path('images/users');
@@ -127,7 +133,17 @@ class PagesController extends Controller
              $filename = $userd->image;
              $file->move($path, $filename);
              //for update in table
-             $userd->update( $userd);
+                $userd->title = $request->title;
+                $userd->alias = $request->alias;
+                $userd->description = $request->fulltext;
+                $userd->state = $request->state;
+                $userd->catid = $request->catid;
+                $userd->Featured = $request->Featured;
+                $userd->urls = $request->urls;
+                $userd->metadesc = $request->metadesc;
+                $userd->metakey = $request->metakey;
+                $userd->save();
+             // $userd->update( $userd);
              return redirect('/admin/pages')->with('completed', 'Page has been updated');
             }
     }
