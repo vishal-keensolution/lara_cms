@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -40,6 +41,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $s= session_n_role_chk();
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
         $this->validate($request,[
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -60,7 +63,7 @@ class PostController extends Controller
         $Post->sectionid=0;
         $Post->mask=0;
         $Post->created=0;
-        $Post->created_by=0;
+        $Post->created_by=$user_id;
         $Post->sectionid=0;
         $Post->mask=0;
         $Post->metadata=0;
@@ -112,22 +115,35 @@ class PostController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------
-        $userd = Post::find($id);
+        // $userd = Post::find($id);
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
+        $userd = Post::find($user_id)->where('created_by',"=",$user_id)->first();
 
         if($request->image != ''){
             $path = public_path('images/users');
              //code for remove old file
-             if($userd->image != ''  && $userd->image != null){
-                  $file_old = $path.$userd->image;
+             if($userd->images != ''  && $userd->images != null){
+                  $file_old = $path.$userd->images;
                   unlink($file_old);
              }
              //upload new file
              $file = $request->image;
-             $filename = $userd->image;
+             $filename = $userd->images;
              $file->move($path, $filename);
              //for update in table
-             $userd->update( $userd);
-             return redirect('/admin/posts')->with('completed', 'Post has been updated');
+            $userd->title = $request->title;
+            $userd->alias = $request->alias;
+            $userd->description = $request->fulltext;
+            $userd->state = $request->state;
+            $userd->catid = $request->catid;
+            $userd->Featured = $request->Featured;
+            $userd->urls = $request->urls;
+            $userd->metadesc = $request->metadesc;
+            $userd->metakey = $request->metakey;
+            $userd->save();
+            // $userd->update( $userd);
+            return redirect('/admin/posts')->with('completed', 'Post has been updated');
             }
     }
 

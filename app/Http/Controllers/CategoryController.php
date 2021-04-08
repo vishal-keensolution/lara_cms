@@ -30,6 +30,8 @@ class CategoryController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
+        // $session= Session::get('admin');
+        // $udi=$session[0]->id;
         return view('admin.addcategory');
     }
 
@@ -41,9 +43,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $session = Session::get('admin');
-        // print_r($session['$id']);
         $s= session_n_role_chk();
+        // $session = Session::get('admin');
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
         $Category = new Category($request->input()) ;
         $Category->level=0;
         $Category->extension=0;
@@ -51,7 +54,7 @@ class CategoryController extends Controller
         $Category->created_time=0;
         $Category->modified_user_id=0;
         $Category->modified_time=0;
-        $Category->created_user_id=0;
+        $Category->created_user_id=$user_id;
         $Category->save() ;
         return redirect('/admin/category')->with('completed', 'Category has been saved!');
     }
@@ -88,11 +91,24 @@ class CategoryController extends Controller
      * @param  \App\Models\Pages  $pages
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
         $s= session_n_role_chk();
-        $userd = Category::find($id);
-        $userd->update($userd);
+        $session= Session::get('admin');
+        $user_id=$session[0]->id;
+        $upd_data = Category::find($user_id)->where('created_user_id',"=",$user_id)->first();
+        $upd_data->title = $request->title;
+        $upd_data->alias = $request->alias;
+        $upd_data->description = $request->description;
+        $upd_data->parentid = $request->parentid;
+        $upd_data->published = $request->published;
+        $upd_data->params = $request->params;
+        $upd_data->metakey = $request->metakey;
+        $upd_data->metadata = $request->metadata;
+        $upd_data->metadesc = $request->metadesc;
+        $upd_data->metakey = $request->metakey;
+        $upd_data->cat_for_component = $request->cat_for_component;
+        $upd_data->save();
         return redirect('/admin/category')->with('completed', 'Category has been updated');
     }
 
