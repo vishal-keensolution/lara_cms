@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -29,7 +30,8 @@ class PostController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
-        return view('admin.addpost');
+        $data['all_category'] = category::where('cat_for_component',"=",'post')->get();
+        return view('admin.addpost',$data);
     }
 
     /**
@@ -44,13 +46,13 @@ class PostController extends Controller
         $session= Session::get('admin');
         $user_id=$session[0]->id;
         $this->validate($request,[
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $Post = new Post($request->input()) ;
         
-        if($file = $request->hasFile('image')) {
+        if($file = $request->hasFile('images')) {
 
-            $file = $request->file('image') ;
+            $file = $request->file('images') ;
             $getFileExt   = $file->getClientOriginalExtension();
             $uploadedFile =   time().'.'.$getFileExt;
             $destinationPath = public_path('images/users') ;
@@ -98,7 +100,8 @@ class PostController extends Controller
     {
         $s= session_n_role_chk();
         $user = Post::findOrFail($id);
-        return view('admin.editpost', compact('user'));
+        $data['all_category'] = category::where('cat_for_component',"=",'post')->get();
+        return view('admin.editpost', compact('user') , $data);
     }
 
     /**
@@ -112,29 +115,39 @@ class PostController extends Controller
     {
         $s= session_n_role_chk();
         $this->validate($request,[
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------
         // $userd = Post::find($id);
         $session= Session::get('admin');
         $user_id=$session[0]->id;
-        $userd = Post::find($user_id)->where('created_by',"=",$user_id)->first();
+        $userd = Post::find($id)->where('created_by',"=",$user_id)->first();
 
-        if($request->image != ''){
-            $path = public_path('images/users');
-             //code for remove old file
-             if($userd->images != ''  && $userd->images != null){
-                  $file_old = $path.$userd->images;
-                  unlink($file_old);
-             }
-             //upload new file
-             $file = $request->image;
-             $filename = $userd->images;
-             $file->move($path, $filename);
+        if($file = $request->hasFile('images')) {
+
+            $file = $request->file('images') ;
+            $getFileExt   = $file->getClientOriginalExtension();
+            $uploadedFile =   time().'.'.$getFileExt;
+            $destinationPath = public_path('images/users') ;
+            $file->move($destinationPath,$uploadedFile);
+            $userd->images = $uploadedFile ;
+
+        }
+        // if($request->images != ''){
+        //     $path = public_path('images/users');
+        //      //code for remove old file
+        //      if($userd->images != ''  && $userd->images != null){
+        //           $file_old = $path.$userd->images;
+        //           unlink($file_old);
+        //      }
+        //      //upload new file
+        //      $file = $request->image;
+        //      $filename = $userd->images;
+        //      $file->move($path, $filename);
              //for update in table
             $userd->title = $request->title;
             $userd->alias = $request->alias;
-            $userd->description = $request->fulltext;
+            $userd->fulltext = $request->fulltext;
             $userd->state = $request->state;
             $userd->catid = $request->catid;
             $userd->Featured = $request->Featured;
@@ -143,8 +156,8 @@ class PostController extends Controller
             $userd->metakey = $request->metakey;
             $userd->save();
             // $userd->update( $userd);
-            return redirect('/admin/posts')->with('completed', 'Post has been updated');
-            }
+        return redirect('/admin/posts')->with('completed', 'Post has been updated');
+            
     }
 
     /**
@@ -158,7 +171,6 @@ class PostController extends Controller
         $s= session_n_role_chk();
         $user = Post::findOrFail($id);
         $user->delete();
-
         return redirect('/admin/posts')->with('completed', 'User has been deleted');
     }
 }

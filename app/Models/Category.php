@@ -11,7 +11,6 @@ class Category extends Authenticatable
 {
     protected $table = 'tbl_category';
     use HasFactory, Notifiable;
-
      /**
      * The attributes that are mass assignable.
      *

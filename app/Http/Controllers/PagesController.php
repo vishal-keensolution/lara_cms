@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pages;
+use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -14,7 +15,7 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index()  
     {
         $s= session_n_role_chk();
         $data = Pages::latest()->paginate(5);
@@ -29,7 +30,8 @@ class PagesController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
-        return view('admin.addpage');
+        $data['all_category'] = category::where('cat_for_component',"=",'pages')->get();
+        return view('admin.addpage', $data);
     }
 
     /**
@@ -44,13 +46,13 @@ class PagesController extends Controller
         $session= Session::get('admin');
         $user_id=$session[0]->id;
         $this->validate($request,[
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $Pages = new Pages($request->input()) ;
         
-        if($file = $request->hasFile('image')) {
+        if($file = $request->hasFile('images')) {
 
-            $file = $request->file('image') ;
+            $file = $request->file('images') ;
             $getFileExt   = $file->getClientOriginalExtension();
             $uploadedFile =   time().'.'.$getFileExt;
             $destinationPath = public_path('images/users') ;
@@ -98,7 +100,8 @@ class PagesController extends Controller
     {
         $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
-        return view('admin.editpage', compact('user'));
+        $data['all_category'] = category::where('cat_for_component',"=",'pages')->get();
+        return view('admin.editpage', compact('user') , $data);
     }
 
     /**
@@ -112,40 +115,48 @@ class PagesController extends Controller
     {
         $s= session_n_role_chk();
         $this->validate($request,[
-            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
         //-------------------------
         // $userd = Pages::find($id);
         $session= Session::get('admin');
         $user_id=$session[0]->id;
-        $userd = Pages::find($user_id)->where('created_by',"=",$user_id)->first();
+        $userd = Pages::find($id)->where('created_by',"=",$user_id)->first();
 
-        if($request->image != ''){
-            $path = public_path('images/users');
+        if($file = $request->hasFile('images')) {
 
-             //code for remove old file
-             if($userd->image != ''  && $userd->image != null){
-                  $file_old = $path.$userd->image;
-                  unlink($file_old);
-             }
-             //upload new file
-             $file = $request->image;
-             $filename = $userd->image;
-             $file->move($path, $filename);
+            $file = $request->file('images') ;
+            $getFileExt   = $file->getClientOriginalExtension();
+            $uploadedFile =   time().'.'.$getFileExt;
+            $destinationPath = public_path('images/users') ;
+            $file->move($destinationPath,$uploadedFile);
+            $userd->images = $uploadedFile ;
+        }
+        // if($request->image != ''){
+        //     $path = public_path('images/users');
+
+        //      //code for remove old file
+        //      if($userd->image != ''  && $userd->image != null){
+        //           $file_old = $path.$userd->image;
+        //           unlink($file_old);
+        //      }
+        //      //upload new file
+        //      $file = $request->image;
+        //      $filename = $userd->image;
+        //      $file->move($path, $filename);
              //for update in table
-                $userd->title = $request->title;
-                $userd->alias = $request->alias;
-                $userd->description = $request->fulltext;
-                $userd->state = $request->state;
-                $userd->catid = $request->catid;
-                $userd->Featured = $request->Featured;
-                $userd->urls = $request->urls;
-                $userd->metadesc = $request->metadesc;
-                $userd->metakey = $request->metakey;
-                $userd->save();
+            $userd->title = $request->title;
+            $userd->alias = $request->alias;
+            $userd->fulltext = $request->fulltext;
+            $userd->state = $request->state;
+            $userd->catid = $request->catid;
+            $userd->Featured = $request->Featured;
+            $userd->urls = $request->urls;
+            $userd->metadesc = $request->metadesc;
+            $userd->metakey = $request->metakey;
+            $userd->save();
              // $userd->update( $userd);
-             return redirect('/admin/pages')->with('completed', 'Page has been updated');
-            }
+        return redirect('/admin/pages')->with('completed', 'Page has been updated');   
     }
 
     /**
@@ -159,7 +170,6 @@ class PagesController extends Controller
         $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
         $user->delete();
-
         return redirect('/admin/pages')->with('completed', 'User has been deleted');
     }
 }

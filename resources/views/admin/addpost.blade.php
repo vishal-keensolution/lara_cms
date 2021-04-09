@@ -104,14 +104,19 @@
                 </div>
                 <div class="form-group">
                     <label>Category</label>
-                    <select id="" name="catid" class="form-control">
+                   <!--  <select id="" name="catid" class="form-control">
                         <option value="1">- No parent -</option>
                         <option value="2">Uncategorised</option>
-                    </select>
+                    </select> -->
+                     <select name="catid" class="form-control btn-success">
+                        @foreach ($all_category as $category) 
+                        <option value="{{$category->id}}">{{$category->title}}</option>
+                        @endforeach
+                     </select>
                 </div>
                  <div class="form-group">
                     <label>Featured</label>
-                    <select id="" name="Featured" class="form-control">
+                    <select id="" name="Featured" class="form-control btn-success">
                         <option value="1">Yes</option>
                         <option value="2">No</option>
                     </select>
@@ -169,7 +174,7 @@
                     <label>Image</label>
                   <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="images" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>
@@ -527,7 +532,7 @@
                     <label>Meta Keywords</label>
                     <input type="text" class="form-control" name="metakey" />
                 </div>
-           <!--      <div class="form-group">
+           <!-- <div class="form-group">
                     <label>Key Reference</label>
                     <input type="text" class="form-control" name="" />
                 </div>

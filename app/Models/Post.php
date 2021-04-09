@@ -11,13 +11,12 @@ class Post extends Authenticatable
 {
     protected $table = 'tbl_posts';
     use HasFactory, Notifiable;
-
      /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'alias', 'fulltext','state','catid', 'Featured', 'image','urls', 'metadesc', 'metakey'];
+    protected $fillable = ['title', 'alias', 'fulltext','state','catid', 'Featured', 'images','urls', 'metadesc', 'metakey'];
 
 
     /**

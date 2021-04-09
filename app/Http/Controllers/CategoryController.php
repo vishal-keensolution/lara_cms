@@ -123,7 +123,6 @@ class CategoryController extends Controller
         $s= session_n_role_chk();
         $user = Category::findOrFail($id);
         $user->delete();
-
         return redirect('/admin/category')->with('completed', 'User has been deleted');
     }
 }
