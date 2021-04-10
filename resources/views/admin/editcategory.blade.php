@@ -106,14 +106,14 @@
         <div class="card-body">
                 <div class="form-group">
                     <label>Parent</label>
-                    <select  name="parentid" class="form-control">
-                        <option value="0">- No parent -</option>
-                        <option value="1">parent</option>
+                    <select  name="parentid" class="form-control btn-success">
+                        <option value="0">parent</option>
+                        <option value="1">unparent</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Status</label>
-                    <select name="published" class="form-control">
+                    <select name="published" class="form-control btn-success">
                       <option value="1" selected="selected">Published</option>
                       <option value="0">Unpublished</option>
                       <option value="2">Archived</option>
@@ -154,11 +154,9 @@
             <div class="card-body">  
                 <div class="form-group">
                     <label>Layout</label>
-                    <select class="form-control" name="params">
-                        <optgroup id="" label="">
+                    <select class="form-control btn-success" name="params">
                             <option value="Blog">Blog</option>
                             <option value="List">List</option>
-                        </optgroup>
                     </select>
                 </div>
                <!--   <div class="form-group">
@@ -201,7 +199,7 @@
                 </div> -->
                 <div class="form-group">
                     <label>Category for component</label>
-                    <select class="form-control" name="cat_for_component">
+                    <select class="form-control btn-success" name="cat_for_component">
                         <option value="pages">Pages</option>
                         <option value="post">Post</option>
                     </select>
@@ -238,7 +236,7 @@
                 </div>
                 <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea name="metadesc" class="form-control" id=""  cols="50"  rows="3"></textarea>
+                    <textarea name="metadesc" class="form-control" id=""  cols="50"  rows="3">{{$user->metadata}}</textarea>
                 </div>
             </div>
         </div>

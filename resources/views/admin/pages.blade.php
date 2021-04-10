@@ -37,7 +37,8 @@
                 <th>Id</th>
                 <th>Image</th>
                 <th>Title</th>
-                <th>Fulltext</th>
+                <th>slug</th>
+                <th>Description</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
@@ -53,6 +54,7 @@
                     <td>{{$row->id}}</td>
                     <td><img style="width:100px" src="{{URL::to('/')}}/public/images/users/{{($row->images)}}"></td>
                     <td>{{$row->title}}</td>
+                    <td>{{$row->alias}}</td>
                     <td>{{$row->fulltext}}</td>
                     <td>{{$row->state}}</td>
                     <td>
@@ -73,9 +75,10 @@
                 <th>No.</th>
                 <th>Id</th>
                 <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Title</th>
+                <th>slug</th>
+                <th>Description</th>
+                <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
               </tfoot>

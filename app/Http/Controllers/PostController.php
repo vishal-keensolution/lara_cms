@@ -60,6 +60,31 @@ class PostController extends Controller
             $Post->images = $uploadedFile ;
 
         }
+         /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Post->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Post->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Post->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Post->alias=$slug;  
+        }
         $Post->title_alias=0;
         $Post->introtext=0;
         $Post->sectionid=0;
@@ -116,6 +141,9 @@ class PostController extends Controller
         $s= session_n_role_chk();
         $this->validate($request,[
             'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'title' => 'required',     'description' => 'required',
+            'urls' => 'required',      'metakey' => 'required',
+            'metadesc' => 'required'
         ]);
         //-------------------------
         // $userd = Post::find($id);
@@ -145,8 +173,33 @@ class PostController extends Controller
         //      $filename = $userd->images;
         //      $file->move($path, $filename);
              //for update in table
-            $userd->title = $request->title;
-            $userd->alias = $request->alias;
+         /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $userd->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $userd->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $userd->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $userd->alias=$slug;  
+        }
+            // $userd->title = $request->title;
+            // $userd->alias = $request->alias;
             $userd->fulltext = $request->fulltext;
             $userd->state = $request->state;
             $userd->catid = $request->catid;

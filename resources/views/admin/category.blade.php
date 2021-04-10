@@ -72,10 +72,10 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Title</th>
+                <th>Alias</th>
+                <th>Description</th>
+                <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
               </tfoot>

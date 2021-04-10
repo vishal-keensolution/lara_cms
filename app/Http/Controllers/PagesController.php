@@ -51,14 +51,39 @@ class PagesController extends Controller
         $Pages = new Pages($request->input()) ;
         
         if($file = $request->hasFile('images')) {
-
             $file = $request->file('images') ;
             $getFileExt   = $file->getClientOriginalExtension();
             $uploadedFile =   time().'.'.$getFileExt;
             $destinationPath = public_path('images/users') ;
             $file->move($destinationPath,$uploadedFile);
             $Pages->images = $uploadedFile ;
-
+        }
+        // $slug = sanitize($request->title);
+        // $Pages->alias=$slug;
+        /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Pages->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Pages->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Pages->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Pages->alias=$slug;  
         }
         $Pages->title_alias=0;
         $Pages->introtext=0;
@@ -116,6 +141,9 @@ class PagesController extends Controller
         $s= session_n_role_chk();
         $this->validate($request,[
             'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'title' => 'required',     'description' => 'required',
+            'urls' => 'required',      'metakey' => 'required',
+            'metadesc' => 'required'
         ]);
         //-------------------------
         // $userd = Pages::find($id);
@@ -145,8 +173,33 @@ class PagesController extends Controller
         //      $filename = $userd->image;
         //      $file->move($path, $filename);
              //for update in table
-            $userd->title = $request->title;
-            $userd->alias = $request->alias;
+         /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $userd->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $userd->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $userd->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $userd->alias=$slug;  
+        }
+            // $userd->title = $request->title;
+            // $userd->alias = $request->alias;
             $userd->fulltext = $request->fulltext;
             $userd->state = $request->state;
             $userd->catid = $request->catid;
