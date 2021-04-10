@@ -120,8 +120,8 @@ function sanitize($title) {
 //-------------------------All Dropdowns----------------------------
     use App\Models\Category;
     use App\Models\Role; 
-function category_dropdown($mode="ADD",$select=""){
-    $Category['all']  = Category::all(); 
+function category_dropdown($mode="ADD",$select="",$cat_type="pages"){
+    $Category['all']  = category::where('cat_for_component',"=",$cat_type)->get(); 
     $Category['select']  = $select;
     return $Category;
 }
