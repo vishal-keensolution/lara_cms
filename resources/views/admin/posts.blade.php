@@ -37,7 +37,7 @@
                 <th>Id</th>
                 <th>Image</th>
                 <th>Title</th>
-                <th>Fulltext</th>
+                <th>Description</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>
@@ -72,9 +72,9 @@
               <tr>
                 <th>No.</th>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Title</th>
-                <th>Category</th>
-                <th>Created</th>
+                <th>Description</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>
               </tr>

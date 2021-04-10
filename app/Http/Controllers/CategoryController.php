@@ -45,9 +45,41 @@ class CategoryController extends Controller
     {
         $s= session_n_role_chk();
         // $session = Session::get('admin');
+         $this->validate($request,[
+        'title' => 'required',     'description' => 'required',
+        'parentid' => 'required',  'published' => 'required',
+        'params' => 'required',    'cat_for_component' =>'required',
+        'metakey' => 'required',   'metadata' => 'required',
+        'metadesc' => 'required'
+        ]);
         $session= Session::get('admin');
         $user_id=$session[0]->id;
         $Category = new Category($request->input()) ;
+          /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Category->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Category->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $Category->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $Category->alias=$slug;  
+        }
         $Category->level=0;
         $Category->extension=0;
         $Category->modified=0;
@@ -96,9 +128,33 @@ class CategoryController extends Controller
         $s= session_n_role_chk();
         $session= Session::get('admin');
         $user_id=$session[0]->id;
-        $upd_data = Category::find($user_id)->where('created_user_id',"=",$user_id)->first();
+        $upd_data = Category::find($id)->where('created_user_id',"=",$user_id)->first();
+              /*code for slug unique*/
+        $title=array();
+        $title=$request->alias;
+        if(empty($title))
+        {
+          $slug = sanitize($request->title);
+          $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $upd_data->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $upd_data->alias=$slug;
+        }
+        else
+        {
+         // $slug = sanitize($title);
+         // $Pages->alias=$slug;
+          $slug = sanitize($title);
+          $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
+          if($count){
+            $newcount = $count > 0 ? ++$count : '';
+            $upd_data->alias= $newcount > 0 ? "$slug-$newcount" :$slug;
+          }else
+          $upd_data->alias=$slug;  
+        }
         $upd_data->title = $request->title;
-        $upd_data->alias = $request->alias;
         $upd_data->description = $request->description;
         $upd_data->parentid = $request->parentid;
         $upd_data->published = $request->published;

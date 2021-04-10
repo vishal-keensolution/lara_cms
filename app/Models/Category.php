@@ -16,7 +16,7 @@ class Category extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['title', 'alias', 'description','parentid','published', 'params', 'metakey','metadata', 'metadesc', 'metakey','cat_for_component'];
+    protected $fillable = ['title', 'description','parentid','published', 'params','metadata', 'metadesc', 'metakey','cat_for_component'];
 
 
     /**

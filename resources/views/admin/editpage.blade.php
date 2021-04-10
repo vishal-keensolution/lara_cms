@@ -87,7 +87,7 @@
                 <div class="form-group">
                    <label>Description</label>
                     <div class="controls">
-                    <textarea name="fulltext" cols="" rows="" style="width: 100%; height: 500px;" class="editable">{{$user->fulltext}}</textarea>   
+                    <textarea name="fulltext" cols="" rows="" style="width: 100%; height: 500px;" class="editable">{{$user->fulltext}}</textarea>
                     </div> 
                 </div>
             </div>    
@@ -111,7 +111,7 @@
                     </select> -->
                     <select name="catid" class="form-control btn-success">
                         @foreach ($all_category as $category) 
-                        <option value="{{$category->id}}">{{$category->title}}</option>
+                        <option value="{{$category->id}}" {{ $category->id == $user->catid ? 'selected' : ''}} >{{$category->title}}</option>
                         @endforeach
                     </select>
                 </div>
