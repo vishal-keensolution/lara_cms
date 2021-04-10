@@ -18,7 +18,7 @@ class PagesController extends Controller
     public function index()  
     {
         $s= session_n_role_chk();
-        $data = Pages::latest()->paginate(5);
+        $data = Pages::latest()->where('title_alias',"=",0)->paginate(5);
         return view('admin.pages', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -47,6 +47,9 @@ class PagesController extends Controller
         $user_id=$session[0]->id;
         $this->validate($request,[
             'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'title' => 'required',     'fulltext' => 'required',
+            'urls' => 'required',      'metakey' => 'required',
+            'metadesc' => 'required'
         ]);
         $Pages = new Pages($request->input()) ;
         
@@ -75,8 +78,6 @@ class PagesController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -139,12 +140,6 @@ class PagesController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        $this->validate($request,[
-            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'title' => 'required',     'description' => 'required',
-            'urls' => 'required',      'metakey' => 'required',
-            'metadesc' => 'required'
-        ]);
         //-------------------------
         // $userd = Pages::find($id);
         $session= Session::get('admin');
@@ -188,8 +183,6 @@ class PagesController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = pages::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -222,7 +215,10 @@ class PagesController extends Controller
     {
         $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
-        $user->delete();
+        $user->title_alias=1;
+        $user->save();
+        // $user = Pages::findOrFail($id);
+        // $user->delete();
         return redirect('/admin/pages')->with('completed', 'User has been deleted');
     }
 }

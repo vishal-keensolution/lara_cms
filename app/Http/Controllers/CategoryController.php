@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $s= session_n_role_chk();
-        $data = category::latest()->paginate(5);
+        $data = category::latest()->where('level',"=",0)->paginate(5);
         return view('admin.category', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -30,8 +30,6 @@ class CategoryController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
-        // $session= Session::get('admin');
-        // $udi=$session[0]->id;
         return view('admin.addcategory');
     }
 
@@ -70,8 +68,6 @@ class CategoryController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -144,8 +140,6 @@ class CategoryController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = category::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -178,7 +172,12 @@ class CategoryController extends Controller
     {
         $s= session_n_role_chk();
         $user = Category::findOrFail($id);
-        $user->delete();
+        $user->level=1;
+        $user->save();
+        // $user->delete();
+        // // $s= session_n_role_chk();
+        // // $user = Category::findOrFail($id);
+        // // $user->delete();
         return redirect('/admin/category')->with('completed', 'User has been deleted');
     }
 }
