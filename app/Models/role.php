@@ -20,19 +20,7 @@ class role extends Authenticatable
     protected $fillable = ['name'];
 
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password'
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [];
+    public function users(){
+        return $this->belongsToMany('App\User','tbl_role_user','roleid','userid');
+    }
 }

@@ -19,17 +19,6 @@ class UserController extends Controller
         return view('admin.users', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
-    //     ]);
-    // }
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -38,6 +27,7 @@ class UserController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
+        $data['role']=role_dropdown();
         return view('admin.adduser');
     }
 
@@ -68,7 +58,6 @@ class UserController extends Controller
             $destinationPath = public_path('images/users') ;
             $file->move($destinationPath,$uploadedFile);
             $User->image = $uploadedFile ;
-
         }
         $password = Hash::make($request->input('password'));
         $User->password = $password; 
@@ -98,7 +87,28 @@ class UserController extends Controller
     {
         $s= session_n_role_chk();
         $user = User::findOrFail($id);
-        return view('admin.edituser', compact('user'));
+        $rs = role_dropdown();
+        //dd($rs['all']); die;
+        return view('admin.edituser')->with(compact('user'))->with(compact('rs'));
+        //return view('admin.edituser', compact(''=>$user,'rs'=>$rs));
+    }
+    public function updaterole(Request $request, $id)
+    {
+        $s= session_n_role_chk();
+        //-------------------------
+        $UsersRole = UsersRole::findOrFail($id);
+        $UsersRole->delete();
+             //for update in table
+             $data = $request->all();
+            $finalArray = array();
+            foreach($data as $key=>$value){
+                dd($value);
+                //array_push($finalArray, array('roleid'=>$value['roleid'],'userid'=>$id));
+            }
+            die;
+            UsersRole::insert($finalArray);
+             return redirect('/admin/users')->with('completed', 'User\'s Role has been updated');
+        //----------------------
     }
 
     /**

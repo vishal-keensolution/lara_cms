@@ -121,13 +121,14 @@ function sanitize($title) {
     use App\Models\Category;
     use App\Models\Role; 
 function category_dropdown($mode="ADD",$select="",$cat_type="pages"){
-    $Category['all']  = category::where('cat_for_component',"=",$cat_type)->get(); 
-    $Category['select']  = $select;
-    return $Category;
+    $C['all']  = category::where('cat_for_component',"=",$cat_type)->get(); 
+    $C['select']  = $select;
+    return $C;
 }
 
 function role_dropdown($mode="ADD",$select=""){
-    $Role['all']  = Role::all(); 
-    $Role['select']  = $select;
-    return $Role;
+    $R['all']  = Role::all(); 
+    //print_r($R['all']); die;
+    $R['select']  = $select;
+    return $R;
 }

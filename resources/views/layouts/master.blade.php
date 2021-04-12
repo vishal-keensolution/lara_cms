@@ -12,6 +12,7 @@
   <link href="{{ asset('public/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" rel="stylesheet">
   <link href="{{ asset('public/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('public/admin/plugins/icheck-bootstrap/icheck-bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('public/admin/dist/css/adminlte.min.css') }}" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
