@@ -103,12 +103,11 @@ class UserController extends Controller
              $data = $request->all();
             $finalArray = array();
             foreach($data as $key=>$value){
-                dd($value);
-                //array_push($finalArray, array('roleid'=>$value['roleid'],'userid'=>$id));
+                array_push($finalArray, array('roleid'=>$value['roleid'],'userid'=>$id));
             }
-            die;
+            
             UsersRole::insert($finalArray);
-             return redirect('/admin/users')->with('completed', 'User\'s Role has been updated');
+            return redirect('/admin/users')->with('completed', 'User\'s Role has been updated');
         //----------------------
     }
 

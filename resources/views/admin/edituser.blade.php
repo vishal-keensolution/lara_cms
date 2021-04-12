@@ -73,7 +73,7 @@
             Edit User's Roles
             </div>
             <div class="card-body">
-            <form action="{{route('users.updaterole', $user->id)}}" method="POST" enctype="multipart/form-data">              
+            <form action="{{route('users.updaterole', $user->id)}}" method="POST" >              
                 <div class="form-group">@csrf
                                     <!-- checkbox -->
                     <div class="form-group">
