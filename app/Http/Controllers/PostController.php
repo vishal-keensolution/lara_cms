@@ -30,7 +30,8 @@ class PostController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
-        $data['all_category'] = category::where('cat_for_component',"=",'post')->get();
+                  /* use of helpers*/
+        $data= category_dropdown($mode ='ADD', $select='' ,$cat_type='post');
         return view('admin.addpost',$data);
     }
 
@@ -126,7 +127,7 @@ class PostController extends Controller
     {
         $s= session_n_role_chk();
         $user = Post::findOrFail($id);
-        $data['all_category'] = category::where('cat_for_component',"=",'post')->get();
+        $data= category_dropdown($mode ='ADD', $select='' ,$cat_type='post');
         return view('admin.editpost', compact('user') , $data);
     }
 

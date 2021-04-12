@@ -110,7 +110,7 @@
                         <option value="2">Uncategorised</option>
                     </select> -->
                     <select name="catid" class="form-control btn-success">
-                        @foreach ($all_category as $category) 
+                        @foreach ($all as $category) 
                         <option value="{{$category->id}}" {{ $category->id == $user->catid ? 'selected' : ''}} >{{$category->title}}</option>
                         @endforeach
                      </select>

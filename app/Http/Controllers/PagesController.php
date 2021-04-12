@@ -30,8 +30,11 @@ class PagesController extends Controller
     public function create()
     {
         $s= session_n_role_chk();
-        $data['all_category'] = category::where('cat_for_component',"=",'pages')->get();
-        return view('admin.addpage', $data);
+                  /* use of helpers*/
+        $data= category_dropdown($mode ='ADD', $select='' ,$cat_type='pages');
+        // print_r($data);
+        // $data['all_category'] = category::where('cat_for_component',"=",'pages')->get();
+         return view('admin.addpage',$data );
     }
 
     /**
@@ -126,7 +129,8 @@ class PagesController extends Controller
     {
         $s= session_n_role_chk();
         $user = Pages::findOrFail($id);
-        $data['all_category'] = category::where('cat_for_component',"=",'pages')->get();
+                  /* use of helpers*/
+        $data= category_dropdown($mode ='ADD', $select='' ,$cat_type='pages');
         return view('admin.editpage', compact('user') , $data);
     }
 
