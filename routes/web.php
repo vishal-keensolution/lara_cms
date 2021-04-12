@@ -31,7 +31,7 @@ Route::resource('admin/auth', UserAuth::class);
 						/*users*/
 Route::resource('admin/users', UserController::class);
 Route::post('admin/users/save', [UserController::class, 'store'])->name('users.store');
-Route::post('admin/users/updaterole/{id}', [UserController::class, 'updaterole'])->name('users.updaterole');
+Route::post('admin/users/{id}/updaterole', [UserController::class, 'updaterole'])->name('users.updaterole');
 
 
 
@@ -49,3 +49,4 @@ Route::post('admin/post/save', [PostController::class, 'store'])->name('post.sto
 					/*pages*/
 Route::resource('admin/pages', PagesController::class);
 Route::post('admin/pages/save', [PagesController::class, 'store'])->name('pages.store');
+
