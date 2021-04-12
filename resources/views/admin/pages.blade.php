@@ -56,14 +56,22 @@
                     <td>{{$row->title}}</td>
                     <td>{{$row->alias}}</td>
                     <td>{{$row->fulltext}}</td>
-                    <td>{{$row->state}}</td>
+                      @if($row->state == 0)
+                        <td> Unpublished</td>
+                      @elseif($row->state == 1)
+                        <td> Published</td>       
+                      @elseif($row->state == 2)
+                        <td> Archived</td>      
+                      @else ($row->state == -2)
+                        <td> Trashed</td>      
+                      @endif        
                     <td>
                         <a href="{{ route('pages.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                        <form action="{{ route('pages.destroy', $row->id)}}" method="post" style="display: inline-block">
+                      <form action="{{ route('pages.destroy', $row->id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                    </form>
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                      </form>
                     </td>
                   </tr>
 

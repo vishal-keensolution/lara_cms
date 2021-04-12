@@ -96,10 +96,10 @@
                 <div class="form-group">
                     <label>Status</label>
                     <select id="" name="state" class="form-control btn-success">
-                        <option value="1" selected="selected">Published</option>
-                        <option value="0">Unpublished</option>
-                        <option value="2">Archived</option>
-                        <option value="-2">Trashed</option>
+                      <option value="0">Unpublished</option>
+                      <option value="1" selected="selected">Published</option>
+                      <option value="2">Archived</option>
+                      <option value="-2">Trashed</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -172,10 +172,9 @@
             <div class="card-body">  
                  <div class="form-group">
                     <label>Image</label>
-                  <div class="input-group">
+                    <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" name="images" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input type="file" name="images" class="">
                       </div>
                     </div>
                 </div>
@@ -185,7 +184,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Url</label>
-                    <input type="text" class="form-control" name="urls" id=""  value="" />
+                    <input type="text" class="form-control" name="urls"/>
                 </div>
             </div>
         </div>

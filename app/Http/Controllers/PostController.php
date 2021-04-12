@@ -18,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         $s= session_n_role_chk();
-        $data = Post::latest()->paginate(5);
+        $data = Post::latest()->where('title_alias',"=",0)->paginate(5);
         return view('admin.posts', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -45,8 +45,11 @@ class PostController extends Controller
         $s= session_n_role_chk();
         $session= Session::get('admin');
         $user_id=$session[0]->id;
-        $this->validate($request,[
+          $this->validate($request,[
             'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'title' => 'required',     'fulltext' => 'required',
+            'urls' => 'required',      'metakey' => 'required',
+            'metadesc' => 'required'
         ]);
         $Post = new Post($request->input()) ;
         
@@ -75,8 +78,6 @@ class PostController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -139,12 +140,6 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        $this->validate($request,[
-            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'title' => 'required',     'description' => 'required',
-            'urls' => 'required',      'metakey' => 'required',
-            'metadesc' => 'required'
-        ]);
         //-------------------------
         // $userd = Post::find($id);
         $session= Session::get('admin');
@@ -188,8 +183,6 @@ class PostController extends Controller
         }
         else
         {
-         // $slug = sanitize($title);
-         // $Pages->alias=$slug;
           $slug = sanitize($title);
           $count = Post::where('alias','LIKE' ,"{$slug}%" )->count();
           if($count){
@@ -223,7 +216,10 @@ class PostController extends Controller
     {
         $s= session_n_role_chk();
         $user = Post::findOrFail($id);
-        $user->delete();
+        $user->title_alias=1;
+        $user->save();
+        // $user = Post::findOrFail($id);
+        // $user->delete();
         return redirect('/admin/posts')->with('completed', 'User has been deleted');
     }
 }

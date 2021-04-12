@@ -97,8 +97,8 @@
                 <div class="form-group">
                   <label>Status</label>
                   <select name="state" class="form-control btn-success">
-                      <option value="1" selected="selected">Published</option>
                       <option value="0">Unpublished</option>
+                      <option value="1" selected="selected">Published</option>
                       <option value="2">Archived</option>
                       <option value="-2">Trashed</option>
                   </select>

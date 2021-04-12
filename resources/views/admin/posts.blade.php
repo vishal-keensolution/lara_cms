@@ -37,6 +37,7 @@
                 <th>Id</th>
                 <th>Image</th>
                 <th>Title</th>
+                <th>slug</th>
                 <th>Description</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>
@@ -53,15 +54,24 @@
                     <td>{{$row->id}}</td>
                     <td><img style="width:100px" src="{{URL::to('/')}}/public/images/users/{{($row->images)}}"></td>
                     <td>{{$row->title}}</td>
+                    <td>{{$row->alias}}</td>
                     <td>{{$row->fulltext}}</td>
-                    <td>{{$row->state}}</td>
+                      @if($row->state == 0)
+                        <td> Unpublished</td>
+                      @elseif($row->state == 1)
+                        <td> Published</td>       
+                      @elseif($row->state == 2)
+                        <td> Archived</td>      
+                      @else ($row->state == -2)
+                        <td> Trashed</td>      
+                      @endif 
                     <td>
                         <a href="{{ route('posts.edit', $row->id)}}" class="btn btn-primary btn-sm">Edit</a>
                         <form action="{{ route('posts.destroy', $row->id)}}" method="post" style="display: inline-block">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                    </form>
+                        </form>
                     </td>
                   </tr>
 
@@ -74,6 +84,7 @@
                 <th>Id</th>
                 <th>Image</th>
                 <th>Title</th>
+                <th>slug</th>
                 <th>Description</th>
                 <th>Status</th>
                 <th>Edit/Delete</th>

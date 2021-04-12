@@ -172,10 +172,9 @@
             <div class="card-body">  
                  <div class="form-group">
                     <label>Image</label>
-                  <div class="input-group">
+                    <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" name="images" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input type="file" name="images">
                       </div>
                     </div>
                 </div>
