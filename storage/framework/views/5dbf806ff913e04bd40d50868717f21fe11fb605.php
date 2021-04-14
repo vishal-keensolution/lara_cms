@@ -23,7 +23,6 @@
             <div class="card-header">
             Edit User
             </div>
-
             <div class="card-body">
             <?php if($errors->any()): ?>
                 <div class="alert alert-danger">
@@ -49,7 +48,6 @@
                     <label for="phone">Phone</label>
                     <input value="<?php echo e($user->phone); ?>" type="tel" class="form-control" name="phone"/>
                 </div>
-
                 <div class="form-group">
                     <label for="image">Image</label>
                     <input type="file" class="form-control" name="image"/>
@@ -64,8 +62,8 @@
 <!-- /.container-fluid -->
 <h2>Edit User's Roles</h2>
 <div class="container-fluid">
-    <div class="">
-        <div class="card push-top">
+    
+        <div class="card push-top ">
             <div class="card-header">
             Edit User's Roles
             </div>
@@ -73,33 +71,27 @@
                 <form method="post" action="<?php echo e(route('userrole.update', $user->id)); ?>" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PATCH'); ?>
-                <div class="form-group">
                     <?php
                         $roleids = array( );
                         foreach ($rs['select'] as $key => $r2) 
                         { $roleids[]=$r2->roleid;  }
                     ?>
-                    
                     <!-- checkbox -->
-                    <div class="form-group">
                         <label for="">Select Roles  &nbsp;&nbsp;&nbsp; </label>
+                        <div class="row">
                         <?php $__currentLoopData = $rs['all']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $r1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="icheck-warning d-inline">
+                            <div class="icheck-warning d-inline col-3">
                                 <input name="roleid[]" id="roleid<?php echo e($r1->id); ?>" <?php if(in_array($r1->id, $roleids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($r1->id); ?>" class="" >
                                 <label for="roleid<?php echo e($r1->id); ?>">
                                     <?php echo e($r1->name); ?> 
                                 </label>
-                        </div>
+                            </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </div>
-
-
-                </div>
-                <button type="submit" class="btn btn-block btn-danger">Edit User Roles</button>
-            </form>
+                        </div>
+                    <button type="submit" class="btn btn-block btn-danger">Edit User Roles</button>
+                </form>
             </div>
         </div>
-    </div>
 <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
