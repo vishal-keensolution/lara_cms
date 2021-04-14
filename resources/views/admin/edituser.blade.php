@@ -24,7 +24,6 @@
             <div class="card-header">
             Edit User
             </div>
-
             <div class="card-body">
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -36,9 +35,7 @@
                 </div><br />
             @endif
             <form  action="{{ route('users.update', $user->id)}}" method="POST" enctype="multipart/form-data">
-                
                 @method('PUT')
-
                 <div class="form-group">
                     @csrf
                     <label for="name">Name</label>
@@ -52,7 +49,6 @@
                     <label for="phone">Phone</label>
                     <input value="{{ $user->phone }}" type="tel" class="form-control" name="phone"/>
                 </div>
-
                 <div class="form-group">
                     <label for="image">Image</label>
                     <input type="file" class="form-control" name="image"/>
@@ -67,35 +63,36 @@
 <!-- /.container-fluid -->
 <h2>Edit User's Roles</h2>
 <div class="container-fluid">
-    <div class="">
-        <div class="card push-top">
+    
+        <div class="card push-top ">
             <div class="card-header">
             Edit User's Roles
             </div>
             <div class="card-body">
-            <form action="{{route('users.updaterole', $user->id)}}" method="POST" >              
-                <div class="form-group">@csrf
-                                    <!-- checkbox -->
-                    <div class="form-group">
+                <form method="post" action="{{ route('userrole.update', $user->id) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PATCH')
+                    @php
+                        $roleids = array( );
+                        foreach ($rs['select'] as $key => $r2) 
+                        { $roleids[]=$r2->roleid;  }
+                    @endphp
+                    <!-- checkbox -->
                         <label for="">Select Roles  &nbsp;&nbsp;&nbsp; </label>
+                        <div class="row">
                         @foreach ($rs['all'] as $key => $r1)
-                            <div class="icheck-warning d-inline">
-                                <input name="roleid[]" id="roleid{{$r1->id}}" type="checkbox" value="{{$r1->id}}" class="" >
+                            <div class="icheck-warning d-inline col-3">
+                                <input name="roleid[]" id="roleid{{$r1->id}}" @if (in_array($r1->id, $roleids)) checked @endif type="checkbox" value="{{$r1->id}}" class="" >
                                 <label for="roleid{{$r1->id}}">
-                                    
                                     {{$r1->name}} 
                                 </label>
-                        </div>
+                            </div>
                         @endforeach
-                    </div>
-
-
-                </div>
-                <button type="submit" class="btn btn-block btn-danger">Edit User Roles</button>
-            </form>
+                        </div>
+                    <button type="submit" class="btn btn-block btn-danger">Edit User Roles</button>
+                </form>
             </div>
         </div>
-    </div>
 <!-- /.row -->
 </div>
 <!-- /.container-fluid -->

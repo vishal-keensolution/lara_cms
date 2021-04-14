@@ -120,15 +120,23 @@ function sanitize($title) {
 //-------------------------All Dropdowns----------------------------
     use App\Models\Category;
     use App\Models\Role; 
-function category_dropdown($mode="ADD",$select="",$cat_type="pages"){
+    use App\Models\MenuAccess;
+
+function category_dropdown($mode="ADD",$select=array(),$cat_type="pages"){
     $C['all']  = category::where('cat_for_component',"=",$cat_type)->get(); 
     $C['select']  = $select;
     return $C;
 }
 
-function role_dropdown($mode="ADD",$select=""){
+function role_dropdown($mode="ADD",$select=array()){
     $R['all']  = Role::all(); 
     //print_r($R['all']); die;
     $R['select']  = $select;
     return $R;
+}
+function menu_dropdown($mode="ADD",$select=array()){
+    $M['all']  = MenuAccess::all(); 
+    //print_r($R['all']); die;
+    $M['select']  = $select;
+    return $M;
 }

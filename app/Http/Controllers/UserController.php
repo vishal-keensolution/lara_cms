@@ -88,27 +88,11 @@ class UserController extends Controller
     {
         $s= session_n_role_chk();
         $user = User::findOrFail($id);
-        $rs = role_dropdown();
-        //dd($rs['all']); die;
+        $UsersRole = UsersRole::where('userid', $id)->get();
+        $rs = role_dropdown("EDIT", $UsersRole);
+        //dd($rs['select']); die;
         return view('admin.edituser')->with(compact('user'))->with(compact('rs'));
         //return view('admin.edituser', compact(''=>$user,'rs'=>$rs));
-    }
-    public function updaterole(Request $request, $id)
-    {
-        $s= session_n_role_chk();
-        //-------------------------
-        $UsersRole = UsersRole::findOrFail($id);
-        $UsersRole->delete();
-             //for update in table
-             $data = $request->all();
-            $finalArray = array();
-            foreach($data as $key=>$value){
-                array_push($finalArray, array('roleid'=>$value['roleid'],'userid'=>$id));
-            }
-            
-            UsersRole::insert($finalArray);
-            return redirect('/admin/users')->with('completed', 'User\'s Role has been updated');
-        //----------------------
     }
 
     /**

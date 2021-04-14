@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\role;
 use App\Models\MenuRole;
-use App\Models\MenuAccess;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class MenuRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $s= session_n_role_chk();
-        $data = role::latest()->paginate(5);
-        return view('admin.role', compact('data'))->with('i', (request()->input('page', 1) - 1) * 5);
+        //
     }
 
     /**
@@ -27,8 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $s= session_n_role_chk();
-        return view('admin.addrole');
+        //
     }
 
     /**
@@ -39,16 +35,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $s= session_n_role_chk();
-        $this->validate($request,[
-            'name' => 'required|max:255'
-        ]);
-        $Role = new role($request->input()) ;
-
-        
-        $Role->save() ;
-
-        return redirect('/admin/role')->with('completed', 'Role has been saved!') ;
+        //
     }
 
     /**
@@ -60,7 +47,6 @@ class RoleController extends Controller
     public function show($id)
     {
         //
-        $s= session_n_role_chk();
     }
 
     /**
@@ -71,12 +57,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $s= session_n_role_chk();
-        $role = role::findOrFail($id);
-        $MenuRole = MenuRole::where('roleid', $id)->get();
-        $ms = menu_dropdown("EDIT", $MenuRole);
-        //dd($rs['select']); die;
-        return view('admin.editrole')->with(compact('role'))->with(compact('ms'));;
+        //
     }
 
     /**
@@ -89,17 +70,16 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $s= session_n_role_chk();
-        $this->validate($request,[
-            'name' => 'required|max:255',
-        ]);
         //-------------------------
-        $roled = role::find($id);
-        $roled->name = $request->input('name');
-             //for update in table
-             $roled->save();
-             return redirect('/admin/role')->with('completed', 'Role has been updated');
-           
-        //----------------------
+        $MenuRole = MenuRole::where('roleid', $id)->delete();
+             $data = $request->menuid;
+            $finalArray = array();
+            foreach($data as $value){
+                array_push($finalArray, array('menuid'=>$value,'roleid'=>$id));
+            }
+            //dd($finalArray);
+            MenuRole::insert($finalArray);
+            return redirect('/admin/role')->with('completed', 'Menu\'s Role has been updated');
     }
 
     /**
@@ -110,10 +90,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $s= session_n_role_chk();
-        $role = role::findOrFail($id);
-        $role->delete();
-
-        return redirect('/admin/role')->with('completed', 'Role has been deleted');
+        //
     }
 }

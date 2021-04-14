@@ -35,9 +35,7 @@
                 </div><br />
             <?php endif; ?>
             <form  action="<?php echo e(route('users.update', $user->id)); ?>" method="POST" enctype="multipart/form-data">
-                
                 <?php echo method_field('PUT'); ?>
-
                 <div class="form-group">
                     <?php echo csrf_field(); ?>
                     <label for="name">Name</label>
@@ -72,16 +70,23 @@
             Edit User's Roles
             </div>
             <div class="card-body">
-            <form action="<?php echo e(route('users.updaterole', $user->id)); ?>" method="POST" >              
-                <div class="form-group"><?php echo csrf_field(); ?>
-                                    <!-- checkbox -->
+                <form method="post" action="<?php echo e(route('userrole.update', $user->id)); ?>" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PATCH'); ?>
+                <div class="form-group">
+                    <?php
+                        $roleids = array( );
+                        foreach ($rs['select'] as $key => $r2) 
+                        { $roleids[]=$r2->roleid;  }
+                    ?>
+                    
+                    <!-- checkbox -->
                     <div class="form-group">
                         <label for="">Select Roles  &nbsp;&nbsp;&nbsp; </label>
                         <?php $__currentLoopData = $rs['all']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $r1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="icheck-warning d-inline">
-                                <input name="roleid[]" id="roleid<?php echo e($r1->id); ?>" type="checkbox" value="<?php echo e($r1->id); ?>" class="" >
+                                <input name="roleid[]" id="roleid<?php echo e($r1->id); ?>" <?php if(in_array($r1->id, $roleids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($r1->id); ?>" class="" >
                                 <label for="roleid<?php echo e($r1->id); ?>">
-                                    
                                     <?php echo e($r1->name); ?> 
                                 </label>
                         </div>

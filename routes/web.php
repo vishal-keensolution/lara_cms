@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\MenuRoleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RoleController;
@@ -31,22 +33,25 @@ Route::resource('admin/auth', UserAuth::class);
 						/*users*/
 Route::resource('admin/users', UserController::class);
 Route::post('admin/users/save', [UserController::class, 'store'])->name('users.store');
-Route::post('admin/users/{id}/updaterole', [UserController::class, 'updaterole'])->name('users.updaterole');
+//Route::post('admin/users/{id}/updaterole', [UserController::class, 'updaterole'])->name('users.updaterole');
 
-
-
-					/*Role*/
+						/*User Roles*/
+Route::resource('admin/userrole', UserRoleController::class);
+						/*Menu Roles*/
+Route::resource('admin/menurole', MenuRoleController::class);
+						
+						/*Role*/
 Route::resource('admin/role', RoleController::class);
 
-					/*category*/
+						/*category*/
 Route::resource('admin/category', CategoryController::class);
 Route::post('admin/category/save', [CategoryController::class, 'store'])->name('category.store');
 
-					/*posts*/
+						/*posts*/
 Route::resource('admin/posts', PostController::class);
 Route::post('admin/post/save', [PostController::class, 'store'])->name('post.store');
 
-					/*pages*/
+						/*pages*/
 Route::resource('admin/pages', PagesController::class);
 Route::post('admin/pages/save', [PagesController::class, 'store'])->name('pages.store');
 

@@ -52,4 +52,43 @@
     <!-- /.row -->
     </div>
   <!-- /.container-fluid -->
+  <!-- /.container-fluid -->
+<h2>Edit Menu's Roles</h2>
+<div class="container-fluid">
+    <div class="">
+        <div class="card push-top">
+            <div class="card-header">
+                Edit Menu's Roles
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ route('menurole.update', $role->id) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PATCH')
+                    @php
+                        $menuids = array( );
+                        foreach ($ms['select'] as $key => $m2) 
+                        { $menuids[]=$m2->menuid;  }
+                    @endphp
+                    
+                    <!-- checkbox -->
+                   
+                    <label for="">Select Menus  &nbsp;&nbsp;&nbsp; </label>
+                    <div class="row">
+                    @foreach ($ms['all'] as $key => $m1)
+                        <div class="form-group icheck-warning d-inline col-3">
+                            <input name="menuid[]" id="menuid{{$m1->id}}" @if (in_array($m1->id, $menuids)) checked @endif type="checkbox" value="{{$m1->id}}" class="" >
+                            <label for="menuid{{$m1->id}}">
+                                {{$m1->name}} 
+                            </label>
+                    </div>
+                    @endforeach
+                    </div>
+                    <button type="submit" class="btn btn-block btn-danger">Edit Menu's Roles</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- /.row -->
+</div>
+<!-- /.container-fluid -->
 @endsection
