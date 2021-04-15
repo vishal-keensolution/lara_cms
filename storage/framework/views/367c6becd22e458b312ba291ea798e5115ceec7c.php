@@ -73,10 +73,14 @@
                     <!-- checkbox -->
                    
                     <label for="">Select Menus  &nbsp;&nbsp;&nbsp; </label>
+                    <div class="icheck-warning d-inline">
+                        <input id="select_all" type="checkbox" class="ckbCheckAll" >
+                        <label for="select_all">Select All</label>
+                    </div>
                     <div class="row">
                     <?php $__currentLoopData = $ms['all']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $m1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="form-group icheck-warning d-inline col-3">
-                            <input name="menuid[]" id="menuid<?php echo e($m1->id); ?>" <?php if(in_array($m1->id, $menuids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($m1->id); ?>" class="" >
+                            <input name="menuid[]" id="menuid<?php echo e($m1->id); ?>" <?php if(in_array($m1->id, $menuids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($m1->id); ?>" class="checkBoxClass" >
                             <label for="menuid<?php echo e($m1->id); ?>">
                                 <?php echo e($m1->name); ?> 
                             </label>

@@ -73,10 +73,14 @@
                     <!-- checkbox -->
                    
                     <label for="">Select Menus  &nbsp;&nbsp;&nbsp; </label>
+                    <div class="icheck-warning d-inline">
+                        <input id="select_all" type="checkbox" class="ckbCheckAll" >
+                        <label for="select_all">Select All</label>
+                    </div>
                     <div class="row">
                     @foreach ($ms['all'] as $key => $m1)
                         <div class="form-group icheck-warning d-inline col-3">
-                            <input name="menuid[]" id="menuid{{$m1->id}}" @if (in_array($m1->id, $menuids)) checked @endif type="checkbox" value="{{$m1->id}}" class="" >
+                            <input name="menuid[]" id="menuid{{$m1->id}}" @if (in_array($m1->id, $menuids)) checked @endif type="checkbox" value="{{$m1->id}}" class="checkBoxClass" >
                             <label for="menuid{{$m1->id}}">
                                 {{$m1->name}} 
                             </label>

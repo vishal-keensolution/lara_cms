@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title'); ?>
 
 <?php $__env->stopSection(); ?>
@@ -78,10 +79,14 @@
                     ?>
                     <!-- checkbox -->
                         <label for="">Select Roles  &nbsp;&nbsp;&nbsp; </label>
+                        <div class="icheck-warning d-inline">
+                            <input id="select_all" type="checkbox" class="ckbCheckAll" >
+                            <label for="select_all">Select All</label>
+                        </div>
                         <div class="row">
                         <?php $__currentLoopData = $rs['all']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $r1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="icheck-warning d-inline col-3">
-                                <input name="roleid[]" id="roleid<?php echo e($r1->id); ?>" <?php if(in_array($r1->id, $roleids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($r1->id); ?>" class="" >
+                                <input name="roleid[]" id="roleid<?php echo e($r1->id); ?>" <?php if(in_array($r1->id, $roleids)): ?> checked <?php endif; ?> type="checkbox" value="<?php echo e($r1->id); ?>" class="checkBoxClass" >
                                 <label for="roleid<?php echo e($r1->id); ?>">
                                     <?php echo e($r1->name); ?> 
                                 </label>

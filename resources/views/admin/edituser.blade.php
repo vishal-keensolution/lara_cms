@@ -79,10 +79,14 @@
                     @endphp
                     <!-- checkbox -->
                         <label for="">Select Roles  &nbsp;&nbsp;&nbsp; </label>
+                        <div class="icheck-warning d-inline">
+                            <input id="select_all" type="checkbox" class="ckbCheckAll" >
+                            <label for="select_all">Select All</label>
+                        </div>
                         <div class="row">
                         @foreach ($rs['all'] as $key => $r1)
                             <div class="icheck-warning d-inline col-3">
-                                <input name="roleid[]" id="roleid{{$r1->id}}" @if (in_array($r1->id, $roleids)) checked @endif type="checkbox" value="{{$r1->id}}" class="" >
+                                <input name="roleid[]" id="roleid{{$r1->id}}" @if (in_array($r1->id, $roleids)) checked @endif type="checkbox" value="{{$r1->id}}" class="checkBoxClass" >
                                 <label for="roleid{{$r1->id}}">
                                     {{$r1->name}} 
                                 </label>

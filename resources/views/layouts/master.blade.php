@@ -116,7 +116,13 @@
       "autoWidth": false,
       "responsive": true,
     });
+    
   });
+  $(document).ready(function () {
+        $(".ckbCheckAll").click(function () {
+            $(".checkBoxClass").attr('checked', this.checked);
+        });
+    });
 </script>
 @yield('scripts')
 </body>

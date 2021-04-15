@@ -113,7 +113,13 @@
       "autoWidth": false,
       "responsive": true,
     });
+    
   });
+  $(document).ready(function () {
+        $(".ckbCheckAll").click(function () {
+            $(".checkBoxClass").attr('checked', this.checked);
+        });
+    });
 </script>
 <?php echo $__env->yieldContent('scripts'); ?>
 </body>
